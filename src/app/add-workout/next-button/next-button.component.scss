@@ -1,0 +1,28 @@
+.bottom-buttons {
+  position: absolute;
+  bottom: 110px;
+  left: 18px;
+  right: 18px;
+}
+
+.add-button {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  border: 2px solid #00ff88;
+  background-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  color: #00ff88;
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center;
+  cursor: pointer;
+  z-index: 999;
+}
+
+button:disabled {
+  opacity: 0.75;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: white;
+}

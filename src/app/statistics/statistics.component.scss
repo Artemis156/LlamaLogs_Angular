@@ -1,0 +1,83 @@
+/* Hintergrund wie bei Home */
+ion-content.liquid-background {
+  --background: none;
+  position: relative;
+  overflow: hidden;
+
+  background: linear-gradient(270deg, #0f2027, #203a43, #2c5364);
+  background-size: 600% 600%;
+  animation: moveBg 25s ease infinite;
+}
+
+/* Farbige Blobs */
+ion-content.liquid-background::before,
+ion-content.liquid-background::after {
+  content: '';
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  filter: blur(160px);
+  opacity: 0.5;
+  z-index: 0;
+}
+
+ion-content.liquid-background::before {
+  top: -150px;
+  left: -200px;
+  background: #00ff88; /* grün */
+}
+
+ion-content.liquid-background::after {
+  bottom: -200px;
+  right: -150px;
+  background: #00aaff; /* blau */
+}
+
+/* Animierter Farbverlauf */
+@keyframes moveBg {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Container */
+.container {
+  max-width: 800px;
+  width: 100%;
+  padding: 20px;
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+/* Überschrift mit Glow */
+.heading {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #00ff88;
+  text-shadow: 0 0 12px rgba(0, 255, 136, 0.6);
+}
+
+/* Liquid Glass Cards */
+.glass-card {
+  --background: rgba(255, 255, 255, 0.12);
+  --border-radius: 18px;
+  border-radius: 18px;
+  --color: #fff;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+  margin-bottom: 20px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 16px 32px rgba(0, 255, 136, 0.25);
+}
+
+.placeholder {
+  height: 100px; /* Platzhalterhöhe */
+}

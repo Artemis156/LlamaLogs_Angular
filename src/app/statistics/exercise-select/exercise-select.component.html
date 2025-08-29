@@ -1,0 +1,31 @@
+<ion-item>
+  <ion-label>Choose Exercise</ion-label>
+  <ion-select
+    placeholder="Select one"
+    slot="end"
+    [value]="selectedExercise"
+    (ionChange)="onExerciseChange($event)"
+    interface="alert"
+    [interfaceOptions]="selectOptions"
+  >
+    <ion-select-option
+      *ngFor="let exercise of exercises"
+      [value]="exercise.id"
+    >
+      {{ exercise.name }}
+    </ion-select-option>
+  </ion-select>
+</ion-item>
+
+@if (exerciseType === 'Cardio') {
+  <app-cardio-chart></app-cardio-chart>
+}
+
+@if (exerciseType === 'Strength') {
+  <app-strength-chart></app-strength-chart>
+  <app-strength-information></app-strength-information>
+}
+
+@if (exerciseType === 'Bodyweight' ) {
+  <app-bodyweight-chart></app-bodyweight-chart>
+}

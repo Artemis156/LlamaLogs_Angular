@@ -1,0 +1,20 @@
+<ion-modal [isOpen]="visible" (didDismiss)="close()" class="glass-modal">
+  <ng-template>
+    <div class="modal-content">
+      <h2 class="modal-title">Enter your weight</h2>
+
+      <label class="label">Weight:</label>
+      <ion-input
+        [(ngModel)]="weight"
+        placeholder="Enter your weight"
+        class="input"
+        type="number"
+      ></ion-input>
+
+      <div class="footer-buttons">
+        <button class="cancel-button" (click)="close()">Cancel</button>
+        <button class="save-button" (click)="save()" [disabled]="disabled">Save</button>
+      </div>
+    </div>
+  </ng-template>
+</ion-modal>

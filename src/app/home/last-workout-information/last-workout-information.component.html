@@ -1,0 +1,24 @@
+<div class="container">
+  <h1 class="heading">Your Exercises last workout:</h1>
+
+  <ng-container *ngIf="exerciseData.length > 0">
+    <div class="exercise-card" *ngFor="let ex of exerciseData">
+      <h3 class="exercise-name">{{ ex.name }}</h3>
+      <p class="category">Category: {{ ex.category }}</p>
+
+      <p class="detail" *ngIf="ex.category === 'Cardio'">
+        Duration: {{ ex.duration }} min · Distance: {{ ex.distance }} {{ distanceUnit }} · Calories: {{ ex.calories }}
+      </p>
+
+      <p class="detail" *ngIf="ex.category === 'Strength'">
+        Sets: {{ ex.sets }} · Reps: {{ ex.reps }}
+      </p>
+
+      <p class="detail" *ngIf="ex.category === 'Bodyweight'">
+        Reps: {{ ex.reps }}
+      </p>
+    </div>
+  </ng-container>
+
+  <p class="no-data" *ngIf="exerciseData.length === 0">No exercises found.</p>
+</div>

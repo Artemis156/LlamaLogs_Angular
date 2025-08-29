@@ -1,0 +1,104 @@
+.center-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh; 
+}
+
+.background-icon {
+  font-size: 400px;
+  color: rgba(255, 255, 255, 0.15);
+  position: absolute;
+  opacity: 1;
+  z-index: 1;
+}
+
+/* Hintergrund mit animiertem Gradient + Blobs */
+ion-content.liquid-background {
+  --background: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  background: linear-gradient(270deg, #0f2027, #203a43, #2c5364);
+  background-size: 600% 600%;
+  animation: moveBg 25s ease infinite;
+  overflow: hidden;
+  height: 100vh;
+}
+
+ion-content.liquid-background::before,
+ion-content.liquid-background::after {
+  content: "";
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  filter: blur(160px);
+  opacity: 0.45;
+  z-index: 0;
+}
+
+ion-content.liquid-background::-webkit-scrollbar {
+  display: none;
+}
+
+ion-content.liquid-background::before {
+  top: -120px;
+  left: -150px;
+  background: #00ff88; /* Grün als Akzent */
+}
+
+ion-content.liquid-background::after {
+  bottom: -150px;
+  right: -120px;
+  background: #00aaff; /* Blau als Ergänzung */
+}
+
+@keyframes moveBg {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+
+.button-text {
+  color: var(--ion-color-light);
+  font-size: 60px;
+  font-weight: bold;
+}
+
+/* Start-Button im Glas-Design */
+.start-button {
+  padding: 14px 40px;
+  border-radius: 20px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+
+  background: transparent;
+
+  color: #00ff88;
+  text-shadow: 0 0 8px rgba(0, 255, 136, 0.6);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+  z-index: 2;
+}
+
+.start-button:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 12px 32px rgba(0, 255, 136, 0.3);
+}
+
+.button-text {
+  letter-spacing: 1px;
+}

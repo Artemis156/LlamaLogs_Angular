@@ -1,0 +1,17 @@
+<div id="chart-card" class="chart-card">
+  <div class="chart-header">
+    <h2 class="chart-title">Your last workout:</h2>
+  </div>
+  <apx-chart
+    [series]="chartOptions.series || []"
+    [chart]="chartOptions.chart || help"
+    [labels]="chartOptions.labels || []"
+    [colors]="chartOptions.colors || []"
+    [dataLabels]="chartOptions.dataLabels || {}"
+    [responsive]="chartOptions.responsive || []"
+    [legend]="chartOptions.legend || {}"
+    [tooltip]="chartOptions.tooltip || {}"
+    [stroke]="chartOptions.stroke || {}"
+    [plotOptions]="chartOptions.plotOptions || {}"
+  ></apx-chart>
+</div>

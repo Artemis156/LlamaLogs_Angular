@@ -1,0 +1,21 @@
+<ion-card *ngFor="let item of workouts.slice().reverse()">
+  <ion-card-header class="my-card-header">
+    <ion-item lines="none" class="header-row">
+      <ion-icon
+        name="barbell-outline"
+        slot="start"
+        class="header-icon"
+      ></ion-icon>
+      <ion-label class="header-text">Workout on {{ item.date }}</ion-label>
+    </ion-item>
+  </ion-card-header>
+
+  <ion-card-content class="sets-container">
+    <div *ngFor="let set of item.sets" class="set-row">
+      <span class="bullet">•</span>
+      <span class="set-text"
+        >{{ set.repetitions }} reps at {{ set.weight }} {{ weightUnit }}</span
+      >
+    </div>
+  </ion-card-content>
+</ion-card>

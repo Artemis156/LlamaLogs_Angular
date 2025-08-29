@@ -1,0 +1,57 @@
+<ion-content class="liquid-background" fullscreen>
+  <div class="heading-row">
+    <h1 class="heading-text">Workout Tracking</h1>
+    <ion-icon name="fitness-outline" class="heading-icon"></ion-icon>
+    <ion-icon name="fitness-outline" class="heading-icon"></ion-icon>
+    <ion-icon name="fitness-outline" class="heading-icon"></ion-icon>
+  </div>
+
+  <app-exercise-name
+    [selectedEquipment]="selectedEquipment"
+    (deselect)="selectedEquipment = null"
+  ></app-exercise-name>
+
+  <app-last-data [exercise]="selectedEquipment"></app-last-data>
+
+  <div class="spacer"></div>
+
+  <div class="input-wrapper">
+    <label class="custom-label" for="duration">Duration (minutes)</label>
+    <ion-input
+      id="duration"
+      type="number"
+      step="0.01"
+      [(ngModel)]="duration"
+      placeholder="Enter duration"
+      class="glass-input"
+    ></ion-input>
+
+    <label class="custom-label" for="distance">Distance ({{ distanceUnit }})</label>
+    <ion-input
+      id="distance"
+      type="number"
+      step="0.01"
+      [(ngModel)]="distance"
+      placeholder="Enter distance"
+      class="glass-input"
+    ></ion-input>
+
+    <label class="custom-label" for="calories">Calories</label>
+    <ion-input
+      id="calories"
+      type="number"
+      [(ngModel)]="calories"
+      placeholder="Enter calories burned"
+      class="glass-input"
+    ></ion-input>
+  </div>
+
+  <app-next-button
+    [saveExercise]="saveExercise"
+    [disabled]="!isValidCardio()"
+  ></app-next-button>
+  <app-finish-button
+    [saveExercise]="finishWorkout"
+    [disabled]="!isValidCardio()"
+  ></app-finish-button>
+</ion-content>

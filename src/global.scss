@@ -1,0 +1,99 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "@ionic/angular/css/normalize.css";
+@import "@ionic/angular/css/structure.css";
+@import "@ionic/angular/css/typography.css";
+@import "@ionic/angular/css/display.css";
+
+/* Optional CSS utils that can be commented out */
+@import "@ionic/angular/css/padding.css";
+@import "@ionic/angular/css/float-elements.css";
+@import "@ionic/angular/css/text-alignment.css";
+@import "@ionic/angular/css/text-transformation.css";
+@import "@ionic/angular/css/flex-utils.css";
+
+/**
+ * Ionic Dark Mode
+ * -----------------------------------------------------
+ * For more info, please see:
+ * https://ionicframework.com/docs/theming/dark-mode
+ */
+
+/* @import "@ionic/angular/css/palettes/dark.always.css"; */
+/* @import "@ionic/angular/css/palettes/dark.class.css"; */
+@import "@ionic/angular/css/palettes/dark.system.css";
+
+/* Hintergrund für die gesamte App */
+body,
+app-root,
+ion-app,
+ion-content {
+  background: linear-gradient(135deg, #0a0f0d, #1c1f1d, #0a0f0d);
+  background-size: 400% 400%;
+  animation: gradientMove 16s ease infinite;
+  min-height: 100vh;
+}
+
+/* Animation wie in deinen Liquid-Glass Screens */
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+
+.custom-select-alert {
+  .alert-wrapper {
+    background: rgba(255, 255, 255, 0.15) !important;
+    backdrop-filter: blur(18px) !important;
+    -webkit-backdrop-filter: blur(18px) !important;
+    border-radius: 20px !important;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    color: #fff !important;
+  }
+
+  .alert-title,
+  .alert-sub-title {
+    color: #fff !important;
+    font-weight: 600 !important;
+  }
+
+  .alert-radio-label {
+    color: #fff !important;
+  }
+
+  .alert-button {
+    font-weight: 600;
+    border-radius: 12px !important;
+    margin: 4px;
+    color: #fff !important;
+    background: rgba(255, 255, 255, 0.2) !important;
+    border: 1px solid rgba(255, 255, 255, 0.75) !important;
+    box-shadow: 0 2px 6px rgba(255, 255, 255, 0.4);
+  }
+}
+
+
+.apexcharts-tooltip {
+  color: #000 !important;
+}

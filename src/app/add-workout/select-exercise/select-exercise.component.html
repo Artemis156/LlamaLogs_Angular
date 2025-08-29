@@ -1,0 +1,45 @@
+<ion-content (click)="clearFocus()" class="liquid-background" fullscreen>
+  <div class="heading-row">
+    <h1 class="heading-text">Workout Tracking</h1>
+    <ion-icon name="fitness-outline" class="heading-icon"></ion-icon>
+    <ion-icon name="fitness-outline" class="heading-icon"></ion-icon>
+    <ion-icon name="fitness-outline" class="heading-icon"></ion-icon>
+  </div>
+
+  <div>
+    <h3 class="subheading">Choose your exercise:</h3>
+
+    <ion-input
+      [(ngModel)]="searchText"
+      placeholder="Search exercise..."
+      (ionFocus)="isFocused = true"
+      (ionBlur)="clearFocus()"
+      (keydown.enter)="clearFocus()"
+      class="input glass-input"
+    ></ion-input>
+
+    <div
+      class="equipment-list scrollable-list glass-list"
+      [class.scroll-padding]="!isFocused"
+    >
+      <div
+        class="equipment-item glass-item"
+        *ngFor="let item of filteredEquipment"
+        (click)="selectEquipment(item)"
+      >
+        <div class="radio-circle"></div>
+        <div class="equipment-label">
+          <span>{{ item.name }}</span>
+          <ion-icon
+            [name]="getIconName(item.type)"
+            class="equipment-icon"
+          ></ion-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  @if (!isFocused) {
+  <app-finish-button [saveExercise]="saveExercise"></app-finish-button>
+  }
+</ion-content>

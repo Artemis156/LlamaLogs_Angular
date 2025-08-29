@@ -1,0 +1,55 @@
+<ion-content fullscreen class="liquid-background ion-padding">
+  <div class="container">
+    <h1 class="heading">Exercises</h1>
+
+    <div class="scroll-wrapper">
+      <div class="list-container">
+        <div class="exercise-item glass-item" *ngFor="let item of exercises">
+          <div class="left">
+            <ion-icon
+              [name]="getIconName(item.type)"
+              size="small"
+              class="border-colored-icon"
+            ></ion-icon>
+            <span class="item-text">{{ item.name }}</span>
+          </div>
+          <ion-icon
+            name="ellipsis-vertical"
+            class="menu-icon"
+            (click)="onEditExercise(item)"
+          ></ion-icon>
+        </div>
+      </div>
+    </div>
+
+    <app-edit-delete-modal
+      [visible]="menuVisible"
+      [item]="selectedItem"
+      (closeModal)="menuVisible = false"
+      (edit)="openEditModal($event)"
+      (delete)="onDeleteConfirm()"
+    ></app-edit-delete-modal>
+
+    <app-delete-modal
+      [visible]="confirmVisible"
+      [itemId]="selectedItem?.id"
+      (closeModal)="confirmVisible = false"
+      (confirm)="deleteExercise($event)"
+    ></app-delete-modal>
+
+    <app-edit-modal
+      [visible]="editVisible"
+      [isEditing]="isEditing"
+      [editName]="editName"
+      [editType]="editType"
+      [editDescription]="editDescription"
+      (closeModal)="editVisible = false"
+      (saveChanges)="saveEdit($event)"
+    ></app-edit-modal>
+
+    <div class="fixed-add-button glass-button" (click)="openAddModal()">
+      <ion-icon name="add-circle-outline" size="medium"></ion-icon>
+      <span class="add-button-text">Add New Equipment</span>
+    </div>
+  </div>
+</ion-content>

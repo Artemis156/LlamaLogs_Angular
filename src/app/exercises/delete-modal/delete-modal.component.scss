@@ -1,0 +1,86 @@
+/* Overlay mit Blur */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Glas-Modal */
+.glass-modal {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  padding: 24px;
+  max-width: 420px;
+  width: 90%;
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+
+  text-align: center;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-text {
+  color: #fff;
+  font-size: 1rem;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+/* Button-Reihe */
+.button-row {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+/* Glas-Button */
+.glass-button {
+  padding: 10px 18px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+
+  background: rgba(255, 255, 255, 0.12);
+  color: #00ff88;
+  font-weight: 600;
+  cursor: pointer;
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.glass-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 255, 136, 0.3);
+}
+
+/* Speziell für Cancel */
+.cancel-button {
+  color: #fff;
+}
+
+/* Speziell für Danger (Delete) */
+.delete-button.danger {
+  color: #ff5555;
+  text-shadow: 0 0 6px rgba(255, 85, 85, 0.5);
+}
+
+.delete-button.danger:hover {
+  box-shadow: 0 6px 18px rgba(255, 85, 85, 0.4);
+}
+
+/* Sanfte Fade-In Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

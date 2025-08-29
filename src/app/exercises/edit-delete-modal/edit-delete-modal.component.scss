@@ -1,0 +1,82 @@
+/* Overlay identisch wie beim Delete Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Glas-Modal */
+.glass-modal {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  padding: 20px;
+  width: 300px;
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+
+  text-align: center;
+  animation: fadeIn 0.3s ease;
+}
+
+/* Titel */
+.modal-title {
+  color: #00ff88;
+  text-shadow: 0 0 8px rgba(0, 255, 136, 0.6);
+  margin-bottom: 16px;
+  font-size: 1.3rem;
+}
+
+/* Optionen */
+.modal-option {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  padding: 12px;
+  border-radius: 12px;
+  margin: 8px 0;
+  cursor: pointer;
+
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.modal-option:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0, 255, 136, 0.25);
+}
+
+/* Icon Styling */
+.icon {
+  font-size: 1.2rem;
+}
+
+.blue {
+  color: #00aaff;
+  text-shadow: 0 0 6px rgba(0, 170, 255, 0.5);
+}
+
+.red {
+  color: #ff5555;
+  text-shadow: 0 0 6px rgba(255, 85, 85, 0.5);
+}
+
+/* Sanftes Einblenden */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

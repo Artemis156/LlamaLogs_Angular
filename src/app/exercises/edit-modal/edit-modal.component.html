@@ -1,0 +1,43 @@
+<div *ngIf="visible" class="modal-overlay" (click)="close()">
+  <div class="modal-content glass-modal" (click)="$event.stopPropagation()">
+    <h2 class="modal-title">
+      {{ isEditing ? 'Edit Equipment' : 'New Equipment' }}
+    </h2>
+
+    <label class="label">Name:</label>
+    <ion-input
+      [(ngModel)]="editName"
+      placeholder="Name"
+      class="input glass-input"
+    ></ion-input>
+
+    <label class="label">Type:</label>
+    <div class="type-buttons">
+      <button
+        *ngFor="let t of types"
+        class="glass-button"
+        [ngClass]="{ selected: editType === t }"
+        (click)="editType = t"
+      >
+        {{ t }}
+      </button>
+    </div>
+
+    <label class="label">Description:</label>
+    <ion-textarea
+      [(ngModel)]="editDescription"
+      placeholder="Description"
+      autoGrow="true"
+      class="input glass-input"
+    ></ion-textarea>
+
+    <div class="footer-buttons">
+      <button class="cancel-button glass-button" (click)="close()">
+        Cancel
+      </button>
+      <button class="save-button glass-button" (click)="save()">
+        Save
+      </button>
+    </div>
+  </div>
+</div>

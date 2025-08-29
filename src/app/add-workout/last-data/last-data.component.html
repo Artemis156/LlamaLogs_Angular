@@ -1,0 +1,23 @@
+<div class="container">
+  <h3 class="title">
+    You last trained this on {{ date | date}}:
+  </h3>
+
+  <ng-container *ngIf="exercise?.type === 'Strength'; else fallback">
+    <p *ngFor="let set of strengthData.sets; let i = index" class="set-text">
+      Set {{ i + 1 }}: {{ set.weight }} {{ weightUnit }} × {{ set.repetitions }} reps
+    </p>
+  </ng-container>
+
+  <ng-template #fallback>
+    @if(exercise?.type === 'Cardio') {
+      <p class="set-text">
+        {{ distance }} {{ distanceUnit }} in {{ time }} minutes
+      </p>
+    } @else if(exercise?.type === 'Bodyweight') {
+      <p class="set-text">
+        {{ reps }} reps
+      </p>
+    }
+  </ng-template>
+</div>

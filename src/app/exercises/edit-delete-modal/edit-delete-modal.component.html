@@ -1,0 +1,16 @@
+<!-- Nur anzeigen, wenn sichtbar -->
+<div *ngIf="visible" class="modal-overlay" (click)="close()">
+  <div class="modal-content glass-modal" (click)="$event.stopPropagation()">
+    <h2 class="modal-title">{{ item?.name }}</h2>
+
+    <div class="modal-option" (click)="onEdit()">
+      <ion-icon name="create-outline" class="icon blue"></ion-icon>
+      <span class="blue">Edit</span>
+    </div>
+
+    <div class="modal-option" (click)="onDelete()">
+      <ion-icon name="trash-outline" class="icon red"></ion-icon>
+      <span class="red">Delete</span>
+    </div>
+  </div>
+</div>

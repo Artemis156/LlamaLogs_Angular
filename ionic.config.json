@@ -1,0 +1,7 @@
+{
+  "name": "LlamaLogs",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

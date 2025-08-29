@@ -1,0 +1,123 @@
+/* Overlay wie bei allen anderen Modals */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Glas-Modal Box */
+.glass-modal {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  padding: 24px;
+  max-width: 420px;
+  width: 90%;
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+
+  animation: fadeIn 0.3s ease;
+}
+
+/* Titel */
+.modal-title {
+  color: #00ff88;
+  text-align: center;
+  margin-bottom: 16px;
+  font-size: 1.3rem;
+  text-shadow: 0 0 8px rgba(0, 255, 136, 0.6);
+}
+
+/* Label */
+.label {
+  display: block;
+  margin: 12px 0 6px;
+  font-size: 0.9rem;
+  color: #ddd;
+}
+
+/* Glas-Inputs */
+.glass-input {
+  --background: rgba(255, 255, 255, 0.12);
+  --color: #fff;
+  --padding-start: 12px;
+  --padding-end: 12px;
+
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  margin-bottom: 12px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.glass-input:focus-within {
+  border: 1px solid #00ff88;
+  box-shadow: 0 0 12px rgba(0, 255, 136, 0.4);
+}
+
+/* Typ-Auswahl (Chips) */
+.type-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 12px;
+  justify-content: space-around;
+}
+
+.glass-button {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 8px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #fff;
+  cursor: pointer;
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.glass-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 255, 136, 0.3);
+}
+
+/* Gewählte Typen */
+.glass-button.selected {
+  background: rgba(0, 255, 136, 0.25);
+  border-color: #00ff88;
+  color: #00ff88;
+  box-shadow: 0 0 12px rgba(0, 255, 136, 0.5);
+}
+
+/* Footer Buttons */
+.footer-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.cancel-button {
+  color: #fff;
+}
+
+.save-button {
+  color: #00ff88;
+  font-weight: bold;
+}
+
+/* FadeIn Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

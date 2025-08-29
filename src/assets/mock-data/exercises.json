@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "name": "Push-Up",
+    "type": "Bodyweight",
+    "description": "A basic upper body strength exercise targeting chest, shoulders, and triceps."
+  },
+  {
+    "id": 2,
+    "name": "Squat",
+    "type": "Strength",
+    "description": "A fundamental lower body exercise targeting the quadriceps, hamstrings, and glutes."
+  },
+  {
+    "id": 3,
+    "name": "Burpee",
+    "type": "Cardio",
+    "description": "A full-body cardio movement combining a squat, push-up, and jump."
+  },
+  {
+    "id": 4,
+    "name": "Plank",
+    "type": "Bodyweight",
+    "description": "An isometric core strength exercise involving maintaining a position similar to a push-up."
+  },
+  {
+    "id": 5,
+    "name": "Jump Rope",
+    "type": "Cardio",
+    "description": "A high-intensity cardio exercise using a skipping rope."
+  },
+  {
+    "id": 6,
+    "name": "Lunge",
+    "type": "Strength",
+    "description": "A lower body strength movement focusing on one leg at a time."
+  },
+  {
+    "id": 7,
+    "name": "Mountain Climbers",
+    "type": "Cardio",
+    "description": "A full-body cardio move that also strengthens core and shoulders."
+  },
+  {
+    "id": 8,
+    "name": "Pull-Up",
+    "type": "Bodyweight",
+    "description": "An upper body exercise that primarily targets the back and biceps using body weight."
+  },
+  {
+    "id": 9,
+    "name": "Deadlift",
+    "type": "Strength",
+    "description": "A compound movement lifting weight from the ground to hip level, working the posterior chain."
+  },
+  {
+    "id": 10,
+    "name": "High Knees",
+    "type": "Cardio",
+    "description": "A cardio drill that involves running in place while bringing knees up to waist height."
+  },
+  {
+    "id": 11,
+    "name": "Bench Press",
+    "type": "Strength",
+    "description": "A chest-focused strength exercise performed lying on a bench with a barbell or dumbbells."
+  },
+  {
+    "id": 12,
+    "name": "Sit-Up",
+    "type": "Bodyweight",
+    "description": "A core-strengthening exercise that targets the abdominal muscles."
+  },
+  {
+    "id": 13,
+    "name": "Jumping Jacks",
+    "type": "Cardio",
+    "description": "A basic full-body aerobic exercise performed by jumping to a position with legs spread and hands overhead."
+  },
+  {
+    "id": 14,
+    "name": "Overhead Press",
+    "type": "Strength",
+    "description": "A shoulder strength movement where weights are pressed from shoulder to overhead."
+  },
+  {
+    "id": 15,
+    "name": "Tricep Dips",
+    "type": "Bodyweight",
+    "description": "A bodyweight exercise that strengthens the triceps using a chair or bench."
+  },
+  {
+    "id": 16,
+    "name": "Rowing",
+    "type": "Cardio",
+    "description": "A machine-based cardio workout that mimics the motion of rowing a boat."
+  },
+  {
+    "id": 17,
+    "name": "Step-Up",
+    "type": "Strength",
+    "description": "A unilateral leg exercise performed by stepping onto a bench or platform."
+  },
+  {
+    "id": 18,
+    "name": "Russian Twist",
+    "type": "Bodyweight",
+    "description": "A rotational core exercise often performed with body weight or light weight."
+  },
+  {
+    "id": 19,
+    "name": "Box Jump",
+    "type": "Cardio",
+    "description": "A plyometric move that builds power and coordination by jumping onto a box or platform."
+  },
+  {
+    "id": 20,
+    "name": "Calf Raise",
+    "type": "Strength",
+    "description": "An exercise targeting the calves by lifting the heels off the ground."
+  }
+]

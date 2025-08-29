@@ -1,0 +1,19 @@
+ion-item {
+  margin: 16px;
+  --background: rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 2px solid rgba(0, 255, 136, 0.5);
+  display: flex;
+  align-items: space-between;
+  justify-content: space-between;
+}
+
+
+.custom-select-alert .alert-button-group {
+  flex-direction: row-reverse; /* Stellt Cancel nach links */
+}
+
+.custom-select-alert .alert-button.sc-ion-alert-md {
+  font-weight: bold;
+}

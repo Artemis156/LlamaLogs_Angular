@@ -1,0 +1,33 @@
+<div id="chart-card" class="chart-card glass-card">
+  <div class="chart-header">
+    <h2 class="chart-title">Weight history:</h2>
+    <ion-button
+      (click)="openWeightModal()"
+      class="add-weight-button glass-button"
+      size="small"
+      fill="solid"
+    >
+      + Add
+    </ion-button>
+  </div>
+
+  <app-add-weight
+    [visible]="addWeightVisible"
+    (closeModal)="addWeightVisible = false"
+    [weight]="null"
+    (saveChanges)="saveWeight($event)"
+  ></app-add-weight>
+
+  <apx-chart
+    [series]="chartOptions.series || []"
+    [chart]="chartOptions.chart || help"
+    [xaxis]="chartOptions.xaxis || {}"
+    [yaxis]="chartOptions.yaxis || {}"
+    [dataLabels]="chartOptions.dataLabels || {}"
+    [stroke]="chartOptions.stroke || {}"
+    [grid]="chartOptions.grid || {}"
+    [title]="chartOptions.title || {}"
+    [tooltip]="chartOptions.tooltip || {}"
+    class="glass-chart"
+  ></apx-chart>
+</div>

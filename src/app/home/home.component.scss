@@ -1,0 +1,79 @@
+ion-content.liquid-background {
+  --background: none; /* Ionic-Hintergrund überschreiben */
+  position: relative;
+  overflow: hidden;
+
+  background: linear-gradient(270deg, #0f2027, #203a43, #2c5364);
+  background-size: 600% 600%;
+  animation: moveBg 25s ease infinite;
+}
+
+/* Farbige Blobs */
+ion-content.liquid-background::before,
+ion-content.liquid-background::after {
+  content: '';
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  filter: blur(160px);
+  opacity: 0.5;
+  z-index: 0;
+}
+
+ion-content.liquid-background::before {
+  top: -150px;
+  left: -200px;
+  background: #00ff88;
+}
+
+ion-content.liquid-background::after {
+  bottom: -200px;
+  right: -150px;
+  background: #00aaff;
+}
+
+/* Keyframes für Hintergrundanimation */
+@keyframes moveBg {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Container für Inhalte */
+.container {
+  max-width: 800px;
+  width: 100%;
+  padding: 20px;
+  position: relative;
+  z-index: 1; /* Inhalte über den Blobs */
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+/* Überschrift mit Glow */
+.heading {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #00ff88;
+  text-shadow: 0 0 12px rgba(0, 255, 136, 0.6);
+}
+
+/* Start Button im Glas-Stil */
+.start-button {
+  --background: rgba(255, 255, 255, 0.15);
+  --border-radius: 16px;
+  --box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --color: #00ff88;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  margin-bottom: 30px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.start-button:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 12px 30px rgba(0, 255, 136, 0.25);
+}

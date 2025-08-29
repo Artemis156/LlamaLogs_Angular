@@ -1,0 +1,55 @@
+<ion-content fullscreen class="liquid-background">
+  <div class="container">
+    <h1 class="heading">Settings</h1>
+
+    <div class="settings-wrapper">
+      <ion-list class="glass-list">
+        <!-- Gewichtseinheit -->
+        <ion-item class="glass-item">
+          <ion-label>Weight Unit</ion-label>
+          <ion-select
+            [(ngModel)]="weightUnit"
+            (ionChange)="saveUnitPreference('weight', weightUnit)"
+            class="glass-select"
+            interface="alert"
+            [interfaceOptions]="weightSelect"
+          >
+            <ion-select-option value="kg">Kilogramm (kg)</ion-select-option>
+            <ion-select-option value="lbs">Pounds (lbs)</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <!-- Distanzeinheit -->
+        <ion-item class="glass-item">
+          <ion-label>Distance Unit</ion-label>
+          <ion-select
+            [(ngModel)]="distanceUnit"
+            (ionChange)="saveUnitPreference('distance', distanceUnit)"
+            class="glass-select"
+            interface="alert"
+            [interfaceOptions]="distanceSelect"
+          >
+            <ion-select-option value="km">Kilometer (km)</ion-select-option>
+            <ion-select-option value="mi">Meilen (mi)</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <!-- Sprache -->
+        <ion-item class="glass-item">
+          <ion-label>Language</ion-label>
+          <ion-select
+            [(ngModel)]="language"
+            (ionChange)="changeLanguage(language)"
+            class="glass-select"
+            interface="alert"
+            [interfaceOptions]="languageSelect"
+          >
+            <ion-select-option value="de">Deutsch</ion-select-option>
+            <ion-select-option value="en">English</ion-select-option>
+            <ion-select-option value="es">Español</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </div>
+  </div>
+</ion-content>

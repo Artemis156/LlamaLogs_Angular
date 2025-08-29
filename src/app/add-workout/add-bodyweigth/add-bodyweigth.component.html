@@ -1,0 +1,35 @@
+<ion-content class="liquid-background" fullscreen>
+  <div class="heading-row">
+    <h1 class="heading-text">Workout Tracking</h1>
+    <ion-icon name="fitness-outline" class="heading-icon"></ion-icon>
+    <ion-icon name="fitness-outline" class="heading-icon"></ion-icon>
+    <ion-icon name="fitness-outline" class="heading-icon"></ion-icon>
+  </div>
+
+  <app-exercise-name
+    [selectedEquipment]="selectedEquipment"
+    (deselect)="selectedEquipment = null"
+  ></app-exercise-name>
+
+  <app-last-data [exercise]="selectedEquipment"></app-last-data>
+
+  <div class="input-wrapper">
+    <label class="custom-label">Repetitions: </label>
+    <ion-input
+      type="number"
+      placeholder="Enter reps..."
+      [(ngModel)]="reps"
+      class="glass-input"
+    ></ion-input>
+  </div>
+
+  <app-next-button
+    [saveExercise]="saveExercise"
+    [disabled]="!reps || reps <= 0"
+  ></app-next-button>
+
+  <app-finish-button
+    [saveExercise]="finishWorkout"
+    [disabled]="!reps || reps <= 0"
+  ></app-finish-button>
+</ion-content>

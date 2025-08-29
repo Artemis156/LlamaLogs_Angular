@@ -1,0 +1,79 @@
+<ion-content class="liquid-background" fullscreen>
+  <div class="heading-row">
+    <h1 class="heading-text">Workout Tracking</h1>
+    <ion-icon name="fitness-outline" class="heading-icon"></ion-icon>
+    <ion-icon name="fitness-outline" class="heading-icon"></ion-icon>
+    <ion-icon name="fitness-outline" class="heading-icon"></ion-icon>
+  </div>
+
+  <app-exercise-name
+    [selectedEquipment]="selectedEquipment"
+    (deselect)="selectedEquipment = null"
+  ></app-exercise-name>
+
+  <div class="scrollable-area">
+    <app-last-data
+      *ngIf="!inputFocused"
+      [exercise]="selectedEquipment"
+    ></app-last-data>
+
+    <div class="input-wrapper">
+      <label class="custom-label">Sets:</label>
+      <div class="set-container">
+        <div class="set-row" *ngFor="let set of strengthSets; let i = index">
+          <ion-input
+            type="number"
+            inputmode="decimal"
+            [placeholder]="'Weight (' + weightUnit + ')'"
+            [(ngModel)]="set.weight"
+            class="glass-input"
+            (ionFocus)="handleFocus()"
+            (ionBlur)="handleBlur()"
+          ></ion-input>
+
+          <ion-input
+            type="number"
+            inputmode="numeric"
+            placeholder="Reps"
+            [(ngModel)]="set.reps"
+            class="glass-input"
+            (ionFocus)="handleFocus()"
+            (ionBlur)="handleBlur()"
+          ></ion-input>
+        </div>
+
+        <div class="button-row">
+          <ion-button
+            class="set-button"
+            fill="clear"
+            size="small"
+            (click)="addSet()"
+          >
+            <ion-icon name="add-circle-outline" slot="start"></ion-icon>
+            Add Set
+          </ion-button>
+
+          <ion-button
+            class="set-button"
+            fill="clear"
+            size="small"
+            (click)="removeSet()"
+            [disabled]="strengthSets.length <= 1"
+          >
+            <ion-icon name="remove-circle-outline" slot="start"></ion-icon>
+            Remove Set
+          </ion-button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-next-button
+    [saveExercise]="saveExercise"
+    [disabled]="!isExerciseInputValid()"
+  ></app-next-button>
+  <app-finish-button
+    [saveExercise]="finishWorkout"
+    [disabled]="!isExerciseInputValid()"
+  ></app-finish-button>
+</ion-content>

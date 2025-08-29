@@ -1,0 +1,117 @@
+/* Hintergrund mit animiertem Gradient + Blobs */
+ion-content.liquid-background {
+  --background: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  background: linear-gradient(270deg, #0f2027, #203a43, #2c5364);
+  background-size: 600% 600%;
+  animation: moveBg 25s ease infinite;
+  overflow: hidden;
+  height: 100vh;
+  z-index: 0;
+}
+
+ion-content.liquid-background::before,
+ion-content.liquid-background::after {
+  content: "";
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  filter: blur(160px);
+  opacity: 0.45;
+  z-index: 0;
+}
+
+ion-content.liquid-background::-webkit-scrollbar {
+  display: none;
+}
+
+/* Blau jetzt oben */
+ion-content.liquid-background::before {
+  top: -120px;
+  left: -150px;
+  background: #00aaff; /* Blau als Akzent */
+  z-index: 0;
+}
+
+/* Grün jetzt unten */
+ion-content.liquid-background::after {
+  bottom: -150px;
+  right: -120px;
+  background: #00ff88; /* Grün als Ergänzung */
+  z-index: -1;
+}
+
+@keyframes moveBg {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Überschrift */
+.heading-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 24px;
+  margin-top: 10px;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #00ff88;
+  text-shadow: 0 0 12px rgba(0, 255, 136, 0.6);
+}
+
+.heading-text {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #00ff88;
+  text-shadow: 0 0 12px rgba(0, 255, 136, 0.6);
+}
+
+.heading-icon {
+  padding-top: 8px;
+  font-size: 30px;
+}
+
+/* Abstandshalter */
+.spacer {
+  height: 20px;
+}
+
+/* Input Label */
+.custom-label {
+  display: block;
+  margin-bottom: 6px;
+  margin-top: 25px;
+  margin-left: 25px;
+  margin-bottom: 10px;
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: #00ff88;
+  text-shadow: 0 0 6px rgba(0, 255, 136, 0.6);
+}
+
+/* Input */
+.glass-input {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border-radius: 10px;
+  font-size: 1rem;
+  --padding-start: 20px;
+  border: 2px solid rgba(255, 255, 255, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  margin-left: 20px;
+  margin-right: 20px;
+  width: auto;
+}

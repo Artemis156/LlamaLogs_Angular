@@ -1,0 +1,162 @@
+.container {
+  position: relative;
+  z-index: 1; /* Inhalte über den Blobs */
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+/* Überschrift mit Glow */
+.heading {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #00ff88;
+  text-shadow: 0 0 12px rgba(0, 255, 136, 0.6);
+}
+
+/* 🌌 Hintergrund mit Animation & Blobs */
+ion-content.liquid-background {
+  --background: none;
+  position: relative;
+  overflow: hidden;
+
+  background: linear-gradient(270deg, #0f2027, #203a43, #2c5364);
+  background-size: 600% 600%;
+  animation: moveBg 25s ease infinite;
+  z-index: 0;
+}
+
+ion-content.liquid-background::before,
+ion-content.liquid-background::after {
+  content: "";
+  position: absolute;
+  width: 450px;
+  height: 450px;
+  border-radius: 50%;
+  filter: blur(150px);
+  opacity: 0.45;
+  z-index: 0;
+}
+
+ion-content.liquid-background::before {
+  top: -120px;
+  left: -150px;
+  background: #00ff88;
+  z-index: -1;
+}
+
+ion-content.liquid-background::after {
+  bottom: -150px;
+  right: -120px;
+  background: #00aaff;
+  z-index: -1;
+}
+
+@keyframes moveBg {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* 📌 Heading im Glas-Design */
+.glass-heading {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 10px 20px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.list-container {
+  max-height: 75vh;
+  overflow-y: auto;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+/* 📋 Exercise List Items */
+.glass-item {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 14px 18px;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.glass-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 255, 136, 0.25);
+}
+
+.item-text {
+  color: #fff;
+  font-size: 1rem;
+  margin-left: 8px;
+}
+
+.border-colored-icon {
+  color: #00ff88;
+}
+
+.menu-icon {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* ➕ Floating Add Button */
+.fixed-add-button.glass-button {
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: calc(100% - 40px);
+  height: 50px;  
+
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 15px;
+  padding: 12px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.3);
+
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #00ff88;
+  text-shadow: 0 0 6px rgba(0, 255, 136, 0.6);
+
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  z-index: 99;
+}
+
+.fixed-add-button.glass-button:hover {
+  transform: translate(-50%, -4px) scale(1.03);
+  box-shadow: 0 12px 32px rgba(0, 255, 136, 0.3);
+}
+
+.add-button-text {
+  letter-spacing: 0.5px;
+}

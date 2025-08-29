@@ -1,0 +1,103 @@
+ion-modal.glass-modal::part(backdrop) {
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(6px);
+}
+
+ion-modal.glass-modal::part(content) {
+  --width: 80%;
+  --max-width: 420px;
+  --height: auto;
+  --border-radius: 20px;
+  --box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 20px;
+}
+
+/* Innerer Content */
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal-title {
+  font-size: 1.4rem;
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #fff;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.label {
+  font-weight: 500;
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+  color: #eaeaea;
+}
+
+.input {
+  --background: rgba(255, 255, 255, 0.1);
+  --padding-start: 12px;
+  --border-radius: 12px;
+  --color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 12px;
+  backdrop-filter: blur(6px);
+  margin-bottom: 8px;
+  font-size: 1rem;
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+}
+
+/* Buttons */
+.footer-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  gap: 12px;
+}
+
+.cancel-button,
+.save-button {
+  flex: 1;
+  padding: 12px;
+  border-radius: 12px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cancel-button {
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.cancel-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.save-button {
+  font-size: 1rem;
+  background: rgba(0, 255, 128, 0.25);
+  color: #00ff80;
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(0, 255, 128, 0.4);
+  border: 1px solid rgba(0, 255, 128, 0.4);
+}
+
+.save-button:disabled {
+  background: rgba(0, 255, 128, 0.1);
+  color: rgba(0, 255, 128, 0.5);
+  cursor: not-allowed;
+}
+
+.save-button:hover {
+  background: rgba(0, 255, 128, 0.4);
+}

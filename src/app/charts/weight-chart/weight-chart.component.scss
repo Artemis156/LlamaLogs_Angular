@@ -1,0 +1,69 @@
+/* Karte selbst */
+.glass-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 20px;
+  margin: 20px 12px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px rgba(0, 255, 136, 0.25);
+}
+
+/* Header */
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.chart-title {
+  color: #00ff88;
+  text-shadow: 0 0 8px rgba(0, 255, 136, 0.6);
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+/* Add-Button */
+.glass-button {
+  background: rgba(255, 255, 255, 0.12);
+  --background: transparent;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #fff;
+  font-weight: bold;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.glass-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 10px rgba(0, 255, 136, 0.4);
+}
+
+/* ApexChart Hintergrund */
+.glass-chart .apexcharts-canvas {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-radius: 12px;
+  backdrop-filter: blur(12px);
+}
+
+/* Achsen, Labels & Tooltip */
+.glass-chart text, 
+.glass-chart .apexcharts-tooltip {
+  fill: #fff !important;
+  color: #fff !important;
+}
+
+.glass-chart .apexcharts-tooltip {
+  background: rgba(0, 0, 0, 0.6) !important;
+  backdrop-filter: blur(8px);
+  border-radius: 10px;
+  border: 1px solid rgba(0, 255, 136, 0.3);
+}

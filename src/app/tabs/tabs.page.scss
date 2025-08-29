@@ -1,0 +1,41 @@
+.glass-tabbar {
+  --background: rgba(255, 255, 255, 0.08); /* fast transparent */
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.2);
+
+  border-radius: 20px 20px 20px 20px;
+  margin: 0 8px 25px 8px;
+
+  /* Safe-Area unten berücksichtigen */
+  padding-bottom: env(safe-area-inset-bottom);
+
+  /* overflow sichtbar lassen */
+  overflow: visible;
+
+  /* entfernt Standardhintergrund von Ionic */
+  background-clip: padding-box;
+}
+
+.glass-tabbar ion-tab-button {
+  --color: rgba(255, 255, 255, 0.7);
+  --color-selected: #00ff88;
+  transition: all 0.2s ease;
+}
+
+.glass-tabbar ion-tab-button[aria-selected="true"] ion-icon,
+.glass-tabbar ion-tab-button[aria-selected="true"] ion-label {
+  color: #00ff88;
+  text-shadow: 0 0 6px rgba(0, 255, 136, 0.5);
+}
+
+.glass-tabbar ion-tab-button:hover {
+  transform: translateY(-2px);
+  filter: drop-shadow(0 0 6px rgba(0, 255, 136, 0.25));
+}
+
+.glass-tabbar ion-icon {
+  font-size: 32px; // gewünschte Größe, z.B. 32px
+}
