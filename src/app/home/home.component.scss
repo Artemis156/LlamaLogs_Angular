@@ -1,11 +1,8 @@
 ion-content.liquid-background {
-ion-content.liquid-background {
   --background: none;
   position: relative;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch; /* smooth scroll für iOS */
-}
-
 
   background: linear-gradient(270deg, #0f2027, #203a43, #2c5364);
   background-size: 600% 600%;
