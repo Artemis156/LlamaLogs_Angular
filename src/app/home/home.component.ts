@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { WeightChartComponent } from '../charts/weight-chart/weight-chart.component';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
@@ -12,7 +11,7 @@ import { LastWorkoutInformationComponent } from "./last-workout-information/last
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  imports: [WeightChartComponent, CommonModule, IonicModule, LastWorkoutComponent, LastWorkoutInformationComponent]
+  imports: [CommonModule, IonicModule, LastWorkoutComponent, LastWorkoutInformationComponent]
 })
 export class HomeComponent {
   constructor(private router: Router) {

@@ -40,6 +40,10 @@ ion-content.liquid-background::after {
   100% { background-position: 0% 50%; }
 }
 
+.scroll-wrapper {
+    overflow-y: auto;
+}
+
 /* Container für Inhalte */
 .container {
   max-width: 800px;

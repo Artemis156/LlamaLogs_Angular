@@ -81,3 +81,7 @@ ion-content.liquid-background::after {
 .placeholder {
   height: 100px; /* Platzhalterhöhe */
 }
+
+.scroll-wrapper {
+    overflow-y: auto;
+}
