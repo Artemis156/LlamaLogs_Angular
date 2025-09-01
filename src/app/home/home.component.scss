@@ -62,7 +62,7 @@ ion-content.liquid-background::after {
 }
 
 /* Start Button im Glas-Stil */
-.start-button {
+ion-button.start-button {
   --background: rgba(255, 255, 255, 0.15);
   --border-radius: 16px;
   --box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
@@ -75,7 +75,7 @@ ion-content.liquid-background::after {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.start-button:hover {
+ion-button.start-button:hover {
   transform: translateY(-4px) scale(1.02);
   box-shadow: 0 12px 30px rgba(0, 255, 136, 0.25);
 }
