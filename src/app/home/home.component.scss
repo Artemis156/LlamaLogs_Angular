@@ -13,7 +13,7 @@ ion-content.liquid-background {
 /* Farbige Blobs */
 ion-content.liquid-background::before,
 ion-content.liquid-background::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 500px;
   height: 500px;
@@ -37,9 +37,15 @@ ion-content.liquid-background::after {
 
 /* Keyframes für Hintergrundanimation */
 @keyframes moveBg {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 /* Container für Inhalte */
@@ -62,25 +68,24 @@ ion-content.liquid-background::after {
 }
 
 /* Start Button im Glas-Stil */
-ion-button.start-button {
+button.start-button {
   /* Ionic Variablen */
-  --background: rgba(255, 255, 255, 0.15);
-  --border-radius: 16px;
-  --box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
-  --color: #00ff88;
-  --border-color: rgba(255, 255, 255, 0.2);
-  --border-style: solid;
-  --border-width: 1px;
+  --background: rgba(255, 255, 255, 0.15) !important;
+  --border-radius: 16px !important;
+  --box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35) !important;
+  --color: #00ff88 !important;
+  --border-color: rgba(255, 255, 255, 0.2) !important;
+  --border-style: solid !important;
+  --border-width: 1px !important;
 
   /* zusätzliche Styles außerhalb Shadow DOM */
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  margin-bottom: 30px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  margin-bottom: 30px !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
 }
 
-ion-button.start-button:hover {
-  transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 12px 30px rgba(0, 255, 136, 0.25);
+button.start-button:hover {
+  transform: translateY(-4px) scale(1.02) !important;
+  box-shadow: 0 12px 30px rgba(0, 255, 136, 0.25) !important;
 }
-
