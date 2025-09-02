@@ -100,3 +100,50 @@ ion-content.liquid-background::after {
   }
 }
 
+.glass-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(12px);
+}
+
+.glass-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #fff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.glass-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 255, 136, 0.25);
+}
+
+.glass-select {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 255, 136, 0.6);
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font-size: 1rem;
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  appearance: none; /* entfernt Standardpfeil */
+}
+
+.glass-select option {
+  background: #1c1c1c;
+  color: #fff;
+}
+
+

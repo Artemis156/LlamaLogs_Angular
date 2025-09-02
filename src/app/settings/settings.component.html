@@ -3,53 +3,50 @@
     <h1 class="heading">Settings</h1>
 
     <div class="settings-wrapper">
-      <ion-list class="glass-list">
+      <div class="glass-list">
         <!-- Gewichtseinheit -->
-        <ion-item class="glass-item">
-          <ion-label>Weight Unit</ion-label>
-          <ion-select
+        <div class="glass-item">
+          <label for="weightUnit">Weight Unit</label>
+          <select
+            id="weightUnit"
             [(ngModel)]="weightUnit"
-            (ionChange)="saveUnitPreference('weight', weightUnit)"
+            (change)="saveUnitPreference('weight', weightUnit)"
             class="glass-select"
-            interface="alert"
-            [interfaceOptions]="weightSelect"
           >
-            <ion-select-option value="kg">Kilogramm (kg)</ion-select-option>
-            <ion-select-option value="lbs">Pounds (lbs)</ion-select-option>
-          </ion-select>
-        </ion-item>
+            <option value="kg">Kilogramm (kg)</option>
+            <option value="lbs">Pounds (lbs)</option>
+          </select>
+        </div>
 
         <!-- Distanzeinheit -->
-        <ion-item class="glass-item">
-          <ion-label>Distance Unit</ion-label>
-          <ion-select
+        <div class="glass-item">
+          <label for="distanceUnit">Distance Unit</label>
+          <select
+            id="distanceUnit"
             [(ngModel)]="distanceUnit"
-            (ionChange)="saveUnitPreference('distance', distanceUnit)"
+            (change)="saveUnitPreference('distance', distanceUnit)"
             class="glass-select"
-            interface="alert"
-            [interfaceOptions]="distanceSelect"
           >
-            <ion-select-option value="km">Kilometer (km)</ion-select-option>
-            <ion-select-option value="mi">Meilen (mi)</ion-select-option>
-          </ion-select>
-        </ion-item>
+            <option value="km">Kilometer (km)</option>
+            <option value="mi">Meilen (mi)</option>
+          </select>
+        </div>
 
         <!-- Sprache -->
-        <ion-item class="glass-item">
-          <ion-label>Language</ion-label>
-          <ion-select
+        <div class="glass-item">
+          <label for="language">Language</label>
+          <select
+            id="language"
             [(ngModel)]="language"
-            (ionChange)="changeLanguage(language)"
+            (change)="changeLanguage(language)"
             class="glass-select"
-            interface="alert"
-            [interfaceOptions]="languageSelect"
           >
-            <ion-select-option value="de">Deutsch</ion-select-option>
-            <ion-select-option value="en">English</ion-select-option>
-            <ion-select-option value="es">Español</ion-select-option>
-          </ion-select>
-        </ion-item>
-      </ion-list>
+            <option value="de">Deutsch</option>
+            <option value="en">English</option>
+            <option value="es">Español</option>
+          </select>
+        </div>
+      </div>
     </div>
   </div>
 </ion-content>

@@ -43,26 +43,19 @@
         </div>
 
         <div class="button-row">
-          <ion-button
-            class="set-button"
-            fill="clear"
-            size="small"
-            (click)="addSet()"
-          >
-            <ion-icon name="add-circle-outline" slot="start"></ion-icon>
+          <button class="set-button" (click)="addSet()">
+            <ion-icon name="add-circle-outline" class="icon"></ion-icon>
             Add Set
-          </ion-button>
+          </button>
 
-          <ion-button
+          <button
             class="set-button"
-            fill="clear"
-            size="small"
             (click)="removeSet()"
             [disabled]="strengthSets.length <= 1"
           >
-            <ion-icon name="remove-circle-outline" slot="start"></ion-icon>
+            <ion-icon name="remove-circle-outline" class="icon"></ion-icon>
             Remove Set
-          </ion-button>
+          </button>
         </div>
       </div>
     </div>
