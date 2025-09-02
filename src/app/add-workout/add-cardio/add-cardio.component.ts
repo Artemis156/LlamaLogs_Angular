@@ -52,9 +52,7 @@ export class AddCardioComponent implements OnInit{
       this.duration !== null &&
       this.duration > 0 &&
       this.distance !== null &&
-      this.distance > 0 &&
-      this.calories !== null &&
-      this.calories > 0
+      this.distance > 0
     );
   }
 

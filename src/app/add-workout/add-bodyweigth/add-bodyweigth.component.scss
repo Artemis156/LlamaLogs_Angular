@@ -103,10 +103,28 @@ ion-content.liquid-background::after {
   color: #fff;
   border-radius: 10px;
   font-size: 1rem;
-  --padding-start: 20px;
+
+  /* Padding für normalen Input */
+  padding: 10px 14px; /* oben/unten 10px, rechts/links 14px */
+  padding-left: 20px; /* entspricht --padding-start bei ion-input */
+
   border: 2px solid rgba(255, 255, 255, 1);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+
   margin-left: 20px;
   margin-right: 20px;
-  width: auto;
+
+  /* volle Breite minus Margin */
+  width: calc(100% - 40px);
+  box-sizing: border-box;
+
+  /* Optional: Glas-Effekt */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Platzhalter in weiß */
+.glass-input::placeholder {
+  color: #fff;
+  opacity: 1;
 }

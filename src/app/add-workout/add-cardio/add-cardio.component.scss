@@ -102,16 +102,44 @@ ion-content.liquid-background::after {
   text-shadow: 0 0 6px rgba(0, 255, 136, 0.6);
 }
 
-/* Input */
 .glass-input {
   background-color: rgba(255, 255, 255, 0.2);
   color: #fff;
   border-radius: 10px;
   font-size: 1rem;
-  --padding-start: 20px;
+
+  /* Padding für Text */
+  padding: 12px 16px;
+  padding-left: 20px;
+
   border: 2px solid rgba(255, 255, 255, 1);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+
   margin-left: 20px;
   margin-right: 20px;
-  width: auto;
+
+  /* volle Breite außer Margin */
+  width: calc(100% - 40px);
+  box-sizing: border-box;
+
+  /* Glas-Effekt */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  /* Transition für Interaktion */
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+/* Platzhalter in weiß */
+.glass-input::placeholder {
+  color: #fff;
+  opacity: 0.9;
+}
+
+/* Fokus-Effekt wie bei Ionic */
+.glass-input:focus {
+  outline: none;
+  border-color: #00ff88;
+  box-shadow: 0 0 8px rgba(0, 255, 136, 0.7);
+  transform: scale(1.01);
 }

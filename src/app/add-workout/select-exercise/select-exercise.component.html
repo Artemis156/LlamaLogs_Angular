@@ -9,14 +9,15 @@
   <div>
     <h3 class="subheading">Choose your exercise:</h3>
 
-    <ion-input
+    <input
+      type="text"
       [(ngModel)]="searchText"
       placeholder="Search exercise..."
-      (ionFocus)="isFocused = true"
-      (ionBlur)="clearFocus()"
+      (focus)="isFocused = true"
+      (blur)="clearFocus()"
       (keydown.enter)="clearFocus()"
       class="input glass-input"
-    ></ion-input>
+    />
 
     <div
       class="equipment-list scrollable-list glass-list"
@@ -30,10 +31,7 @@
         <div class="radio-circle"></div>
         <div class="equipment-label">
           <span>{{ item.name }}</span>
-          <ion-icon
-            [name]="getIconName(item.type)"
-            class="equipment-icon"
-          ></ion-icon>
+          <i class="equipment-icon" ></i>
         </div>
       </div>
     </div>

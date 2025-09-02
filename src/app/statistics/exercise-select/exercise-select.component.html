@@ -1,21 +1,31 @@
-<ion-item>
-  <ion-label>Choose Exercise</ion-label>
-  <ion-select
-    placeholder="Select one"
-    slot="end"
-    [value]="selectedExercise"
-    (ionChange)="onExerciseChange($event)"
-    interface="alert"
-    [interfaceOptions]="selectOptions"
-  >
-    <ion-select-option
-      *ngFor="let exercise of exercises"
-      [value]="exercise.id"
-    >
-      {{ exercise.name }}
-    </ion-select-option>
-  </ion-select>
-</ion-item>
+<!-- Trigger Button (wie ein Select) -->
+<div class="custom-select glass-select" (click)="openSelect()">
+  <span>{{ getExerciseName(selectedExercise) || 'Choose Exercise' }}</span>
+  <span class="arrow">▼</span>
+</div>
+
+<!-- Fullscreen Modal -->
+<div class="glass-modal fullscreen" *ngIf="showSelect" (click)="closeSelect()">
+  <div class="glass-modal-content" (click)="$event.stopPropagation()">
+    <h2 class="modal-title">Choose Exercise</h2>
+
+    <ul class="modal-options">
+      <li 
+        *ngFor="let exercise of exercises" 
+        (click)="selectExercise(exercise.id)"
+        [class.active]="exercise.id === selectedExercise"
+      >
+        {{ exercise.name }}
+      </li>
+    </ul>
+
+    <div class="modal-actions">
+      <button class="modal-btn cancel" (click)="closeSelect()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+
 
 @if (exerciseType === 'Cardio') {
   <app-cardio-chart></app-cardio-chart>

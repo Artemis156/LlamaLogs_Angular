@@ -5,52 +5,62 @@ import { IonicModule } from '@ionic/angular';
 import { CardioChartComponent } from 'src/app/charts/cardio-chart/cardio-chart.component';
 import { StrengthChartComponent } from 'src/app/charts/strength-chart/strength-chart.component';
 import { BodyweightChartComponent } from 'src/app/charts/bodyweight-chart/bodyweight-chart.component';
-import { StrengthInformationComponent } from "../strength-information/strength-information.component";
+import { StrengthInformationComponent } from '../strength-information/strength-information.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-exercise-select',
   templateUrl: './exercise-select.component.html',
   styleUrls: ['./exercise-select.component.scss'],
-  imports: [CommonModule, IonicModule, CardioChartComponent, StrengthChartComponent, BodyweightChartComponent, StrengthInformationComponent],
+  imports: [
+    CommonModule,
+    IonicModule,
+    CardioChartComponent,
+    StrengthChartComponent,
+    BodyweightChartComponent,
+    StrengthInformationComponent,
+    FormsModule,
+  ],
 })
 export class ExerciseSelectComponent implements OnInit {
-  exercises: any[] = [];
-  selectedExercise: number | null = null;
+  showSelect = false;
+  selectedExercise: string | null = null;
   exerciseType: string = '';
 
+  exercises = [
+    { id: 'squat', name: 'Squat', type: 'Strength' },
+    { id: 'bench', name: 'Bench Press', type: 'Strength' },
+    { id: 'deadlift', name: 'Deadlift', type: 'Strength' },
+    { id: 'run', name: 'Running', type: 'Cardio' },
+  ];
+
+  
 
   constructor(private exerciseService: ExerciseService) {}
-
-  selectOptions = {
-    header: 'Choose Exercise',
-    subHeader: '',
-    cssClass: 'custom-select-alert',
-    buttons: [
-      {
-        text: 'Cancel',
-        role: 'cancel',
-        cssClass: 'custom-cancel-button',
-        handler: () => {
-          console.log('Cancel clicked');
-        },
-      },
-      {
-        text: 'OK',
-        handler: (value: any) => {
-          console.log('OK clicked with value:', value);
-        },
-      },
-    ],
-  };
 
   async ngOnInit(): Promise<void> {
     this.exercises = await this.exerciseService.getExercises();
   }
 
-onExerciseChange(event: any) {
-  this.selectedExercise = event.detail.value;
+  openSelect() {
+    this.showSelect = true;
+  }
 
-  const selected = this.exercises.find(e => e.id === this.selectedExercise);
-  this.exerciseType = selected?.type || '';
-}
+  closeSelect() {
+    this.showSelect = false;
+  }
+
+  selectExercise(id: string) {
+    this.selectedExercise = id;
+
+    // alte Logik übernehmen
+    const selected = this.exercises.find(e => e.id === this.selectedExercise);
+    this.exerciseType = selected?.type || '';
+
+    this.closeSelect();
+  }
+
+  getExerciseName(id: string | null) {
+    return this.exercises.find(e => e.id === id)?.name;
+  }
 }

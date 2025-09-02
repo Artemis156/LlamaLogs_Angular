@@ -21,7 +21,7 @@
       <label class="custom-label">Sets:</label>
       <div class="set-container">
         <div class="set-row" *ngFor="let set of strengthSets; let i = index">
-          <ion-input
+          <input
             type="number"
             inputmode="decimal"
             [placeholder]="'Weight (' + weightUnit + ')'"
@@ -29,9 +29,9 @@
             class="glass-input"
             (ionFocus)="handleFocus()"
             (ionBlur)="handleBlur()"
-          ></ion-input>
+          />
 
-          <ion-input
+          <input
             type="number"
             inputmode="numeric"
             placeholder="Reps"
@@ -39,7 +39,7 @@
             class="glass-input"
             (ionFocus)="handleFocus()"
             (ionBlur)="handleBlur()"
-          ></ion-input>
+          />
         </div>
 
         <div class="button-row">

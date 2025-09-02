@@ -68,24 +68,48 @@ ion-content.liquid-background::after {
 }
 
 /* Start Button im Glas-Stil */
-button.start-button {
-  /* Ionic Variablen */
-  --background: rgba(255, 255, 255, 0.15) !important;
-  --border-radius: 16px !important;
-  --box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35) !important;
-  --color: #00ff88 !important;
-  --border-color: rgba(255, 255, 255, 0.2) !important;
-  --border-style: solid !important;
-  --border-width: 1px !important;
+.start-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px; /* Abstand zwischen Icon und Text */
 
-  /* zusätzliche Styles außerhalb Shadow DOM */
-  backdrop-filter: blur(14px) !important;
-  -webkit-backdrop-filter: blur(14px) !important;
-  margin-bottom: 30px !important;
-  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+  background: rgba(255, 255, 255, 0.15);
+  color: #00ff88;
+  font-size: 16px;
+  font-weight: 500;
+
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+
+  padding: 12px 20px;
+  min-height: 44px; /* ähnlich wie IonButton */
+  min-width: 64px;
+
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+
+  margin-bottom: 30px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-button.start-button:hover {
-  transform: translateY(-4px) scale(1.02) !important;
-  box-shadow: 0 12px 30px rgba(0, 255, 136, 0.25) !important;
+/* Hover-Effekt (Web/Desktop) */
+.start-button:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 12px 30px rgba(0, 255, 136, 0.25);
 }
+
+/* Aktiv gedrückt */
+.start-button:active {
+  transform: scale(0.96);
+}
+
+/* Fokus-Ring (Accessibility) */
+.start-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.5);
+}
+

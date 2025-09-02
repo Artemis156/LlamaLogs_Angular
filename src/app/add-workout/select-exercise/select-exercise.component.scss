@@ -101,8 +101,17 @@ ion-content.liquid-background::after {
   margin-left: 20px;
   margin-right: 20px;
   margin-bottom: 24px;
-  color: #fff;
-  width: auto;
+  color: #fff !important;
+
+  /* volle Breite minus Margins */
+  width: calc(100% - 40px);
+  box-sizing: border-box; /* Padding und Border werden in die Breite eingerechnet */
+}
+
+.glass-input::placeholder {
+  color: #ffffff !important;
+  opacity: 1; /* stellt sicher, dass es nicht transparent ist */
+  font-weight: 200;
 }
 
 /* Liste Container */
@@ -110,7 +119,7 @@ ion-content.liquid-background::after {
   max-height: 65vh;
   overflow-y: auto;
   padding: 10px;
-  margin-top: 20px;
+  margin-top: 0;
 }
 
 /* Einzelne Items */
