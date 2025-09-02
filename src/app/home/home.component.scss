@@ -63,14 +63,18 @@ ion-content.liquid-background::after {
 
 /* Start Button im Glas-Stil */
 ion-button.start-button {
+  /* Ionic Variablen */
   --background: rgba(255, 255, 255, 0.15);
   --border-radius: 16px;
   --box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
   --color: #00ff88;
+  --border-color: rgba(255, 255, 255, 0.2);
+  --border-style: solid;
+  --border-width: 1px;
+
+  /* zusätzliche Styles außerhalb Shadow DOM */
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 16px;
   margin-bottom: 30px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -79,3 +83,4 @@ ion-button.start-button:hover {
   transform: translateY(-4px) scale(1.02);
   box-shadow: 0 12px 30px rgba(0, 255, 136, 0.25);
 }
+

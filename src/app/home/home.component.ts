@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
@@ -11,7 +11,9 @@ import { LastWorkoutInformationComponent } from "./last-workout-information/last
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  imports: [CommonModule, IonicModule, LastWorkoutComponent, LastWorkoutInformationComponent]
+  imports: [CommonModule, IonicModule, LastWorkoutComponent, LastWorkoutInformationComponent],
+    encapsulation: ViewEncapsulation.None  // 👉 Styles wirken global
+
 })
 export class HomeComponent {
   constructor(private router: Router) {
