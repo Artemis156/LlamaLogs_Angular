@@ -13,6 +13,7 @@ import {
 import { EditDeleteModalComponent } from '../exercises/edit-delete-modal/edit-delete-modal.component';
 import { DeleteModalComponent } from './delete-modal/delete-modal.component';
 import { EditModalComponent } from './edit-modal/edit-modal.component';
+import { DatabaseService, Exercise } from '../services/database.service';
 
 @Component({
   selector: 'app-exercises',
@@ -28,7 +29,7 @@ import { EditModalComponent } from './edit-modal/edit-modal.component';
   styleUrls: ['./exercises.component.scss'],
 })
 export class ExercisesComponent implements OnInit {
-  exercises: any[] = [];
+  exercises: Exercise[] = this.database.getExercises();
   selectedExercise: any = null;
   menuVisible = false;
   selectedItem: any = null;
@@ -40,7 +41,7 @@ export class ExercisesComponent implements OnInit {
   editType = '';
   editDescription = '';
 
-  constructor(private exerciseService: ExerciseService) {
+  constructor(private exerciseService: ExerciseService, private database: DatabaseService) {
     addIcons({ fitness, barbell, body, addCircleOutline, ellipsisVertical });
   }
 
