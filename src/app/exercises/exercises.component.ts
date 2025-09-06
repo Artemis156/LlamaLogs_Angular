@@ -28,7 +28,7 @@ import { DatabaseService, Exercise } from '../services/database.service';
   templateUrl: './exercises.component.html',
   styleUrls: ['./exercises.component.scss'],
 })
-export class ExercisesComponent implements OnInit {
+export class ExercisesComponent{
   exercises: Exercise[] = this.database.getExercises();
   selectedExercise: any = null;
   menuVisible = false;
@@ -41,12 +41,8 @@ export class ExercisesComponent implements OnInit {
   editType = '';
   editDescription = '';
 
-  constructor(private exerciseService: ExerciseService, private database: DatabaseService) {
+  constructor(private database: DatabaseService) {
     addIcons({ fitness, barbell, body, addCircleOutline, ellipsisVertical });
-  }
-
-  async ngOnInit(): Promise<void> {
-    this.exercises = await this.exerciseService.getExercises();
   }
 
   onEditExercise(item: any) {
