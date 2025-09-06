@@ -1,18 +1,16 @@
 /* Hintergrund mit animiertem Gradient + Blobs */
 ion-content.liquid-background {
   --background: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   position: relative;
 
   background: linear-gradient(270deg, #0f2027, #203a43, #2c5364);
   background-size: 600% 600%;
   animation: moveBg 25s ease infinite;
   overflow: hidden;
-  height: 100vh;
+  min-height: 100vh;
   z-index: 0;
 }
+
 
 ion-content.liquid-background::before,
 ion-content.liquid-background::after {
@@ -171,3 +169,11 @@ ion-content.liquid-background::after {
   background: rgba(0, 255, 136, 0.6);
   border-color: #00ff88;
 }
+
+.center-wrapper {
+  display: flex;
+  flex-direction: column; /* sorgt für Überschrift oben, Inhalt darunter */
+  align-items: center;
+  justify-content: center;
+}
+
