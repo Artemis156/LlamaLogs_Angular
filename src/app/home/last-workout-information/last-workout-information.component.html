@@ -1,6 +1,4 @@
 <div class="container">
-  <h1 class="heading">Your Exercises last workout:</h1>
-
   <ng-container *ngIf="exerciseData.length > 0">
     <div class="exercise-card" *ngFor="let ex of exerciseData">
       <h3 class="exercise-name">{{ ex.name }}</h3>

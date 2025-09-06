@@ -63,6 +63,7 @@ ion-content.liquid-background::after {
 .heading {
   font-size: 2rem;
   margin-bottom: 20px;
+  margin-top: 40px;
   color: #00ff88;
   text-shadow: 0 0 12px rgba(0, 255, 136, 0.6);
 }
@@ -76,7 +77,7 @@ ion-content.liquid-background::after {
 
   background: rgba(255, 255, 255, 0.15);
   color: #00ff88;
-  font-size: 16px;
+  font-size: 1.5rem;
   font-weight: 500;
 
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -94,6 +95,8 @@ ion-content.liquid-background::after {
 
   margin-bottom: 30px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  width: 90%; /* Volle Breite minus Padding */
 }
 
 /* Hover-Effekt (Web/Desktop) */
@@ -113,3 +116,15 @@ ion-content.liquid-background::after {
   box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.5);
 }
 
+.spacer {
+  height: 40px; /* Abstand unten */
+}
+
+h2 {
+  color: #00e5ff;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 500;
+
+  text-shadow: 0 0 12px rgba(0, 200, 255, 0.6);
+}
