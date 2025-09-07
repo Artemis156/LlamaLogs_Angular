@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ExerciseService } from '../services/exercises.service';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { addIcons } from 'ionicons';
@@ -61,30 +60,31 @@ export class ExercisesComponent{
   }
 
   onDeleteConfirm() {
-    this.menuVisible = false;
-    this.confirmVisible = true;
+    this.deleteExercise(this.selectedItem.id);
   }
 
   deleteExercise(id: number) {
     console.log('Lösche Übung mit ID:', id);
-    // Hier deine Löschlogik einfügen (z. B. aus der Liste entfernen oder aus JSON-Datei)
+
+    this.database.deleteExercise(id);
+    this.exercises = this.database.getExercises();
+    this.confirmVisible = false;
+    this.menuVisible = false;
+    this.selectedItem = null;
   }
 
   saveEdit(data: { name: string; type: string; description: string }) {
     if (this.isEditing && this.selectedItem) {
       console.log('Edit Exercise');
-      // Update logic here
       this.selectedItem.name = data.name;
       this.selectedItem.type = data.type;
       this.selectedItem.description = data.description;
+      this.database.updateExercise(this.selectedItem);
+      this.exercises = this.database.getExercises();
     } else {
       console.log('Create Exercise');
-      // Create logic here
-      const newItem = {
-        id: Date.now(),
-        ...data,
-      };
-      this.exercises.push(newItem);
+      this.database.addExercise(data);
+      this.exercises = this.database.getExercises();
     }
 
     this.editVisible = false;

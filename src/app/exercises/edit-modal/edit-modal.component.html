@@ -1,15 +1,16 @@
 <div *ngIf="visible" class="modal-overlay" (click)="close()">
   <div class="modal-content glass-modal" (click)="$event.stopPropagation()">
     <h2 class="modal-title">
-      {{ isEditing ? 'Edit Equipment' : 'New Equipment' }}
+      {{ isEditing ? "Edit Equipment" : "New Equipment" }}
     </h2>
 
     <label class="label">Name:</label>
-    <ion-input
+    <input
+      type="text"
       [(ngModel)]="editName"
       placeholder="Name"
-      class="input glass-input"
-    ></ion-input>
+      class="glass-input"
+    />
 
     <label class="label">Type:</label>
     <div class="type-buttons">
@@ -24,20 +25,18 @@
     </div>
 
     <label class="label">Description:</label>
-    <ion-textarea
+    <textarea
       [(ngModel)]="editDescription"
       placeholder="Description"
-      autoGrow="true"
-      class="input glass-input"
-    ></ion-textarea>
+      class="glass-input"
+      rows="3"
+    ></textarea>
 
     <div class="footer-buttons">
       <button class="cancel-button glass-button" (click)="close()">
         Cancel
       </button>
-      <button class="save-button glass-button" (click)="save()">
-        Save
-      </button>
+      <button class="save-button glass-button" (click)="save()">Save</button>
     </div>
   </div>
 </div>
