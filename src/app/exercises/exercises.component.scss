@@ -122,11 +122,11 @@ ion-content.liquid-background::after {
 /* ➕ Floating Add Button */
 .fixed-add-button.glass-button {
   position: fixed;
-  bottom: 10px;
+  bottom: 30px;
   left: 50%;
   transform: translateX(-50%);
 
-  width: calc(100% - 40px);
+  width: calc(100% - 60px);
   height: 50px;  
 
   background: rgba(255, 255, 255, 0.15);
