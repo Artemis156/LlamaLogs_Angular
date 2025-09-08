@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { DistanceUnitService } from 'src/app/services/distance_unit.service';
+import { DatabaseWorkoutService } from 'src/app/services/database_workout.service';
 @Component({
   selector: 'app-last-workout-information',
   templateUrl: './last-workout-information.component.html',
@@ -11,28 +12,12 @@ import { DistanceUnitService } from 'src/app/services/distance_unit.service';
 export class LastWorkoutInformationComponent implements OnInit {
   distanceUnit: 'km' | 'mi';
 
-  exerciseData = [
-    {
-      name: 'Running',
-      category: 'Cardio',
-      duration: 30,
-      distance: 5,
-      calories: 300,
-    },
-    {
-      name: 'Bench Press',
-      category: 'Strength',
-      sets: 4,
-      reps: 8,
-    },
-    {
-      name: 'Push-ups',
-      category: 'Bodyweight',
-      reps: 20,
-    },
-  ];
+  exerciseData: any = null;
 
-  constructor(private distanceUnitService: DistanceUnitService) {
+  constructor(
+    private distanceUnitService: DistanceUnitService,
+    private databaseWorkout: DatabaseWorkoutService
+  ) {
     this.distanceUnit = this.distanceUnitService.getCurrentUnit();
   }
 
@@ -40,5 +25,15 @@ export class LastWorkoutInformationComponent implements OnInit {
     this.distanceUnitService.distanceUnit$.subscribe((unit) => {
       this.distanceUnit = unit;
     });
+    this.loadLastWorkout();
+  }
+
+  async loadLastWorkout() {
+    try {
+      this.exerciseData = await this.databaseWorkout.getLastWorkout();
+      console.log('Last workout data:', this.exerciseData);
+    } catch (error) {
+      console.error('Error loading last workout:', error);
+    }
   }
 }

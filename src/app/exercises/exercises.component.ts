@@ -82,6 +82,7 @@ export class ExercisesComponent implements OnInit {
   }
 
   async deleteExercise(id: number) {
+    //es müssen noch alle referenzen in workout_exercises gelöscht werden
     this.loading = true;
     try {
       await this.database.deleteExercise(id);

@@ -4,32 +4,46 @@ import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { addIcons } from 'ionicons';
 import { barbell, bodyOutline, fitnessOutline } from 'ionicons/icons';
-import { ExerciseService } from '../../services/exercises.service';
 import { Router } from '@angular/router';
 import { FinishButtonComponent } from '../finish-button/finish-button.component';
+import { DatabaseService } from 'src/app/services/database.service';
+import { SpinnerComponent } from 'src/app/spinner/spinner.component';
 
 @Component({
   selector: 'app-select-exercise',
-  imports: [FormsModule, IonicModule, CommonModule, FinishButtonComponent],
+  imports: [
+    FormsModule,
+    IonicModule,
+    CommonModule,
+    FinishButtonComponent,
+    SpinnerComponent,
+  ],
   templateUrl: './select-exercise.component.html',
   styleUrls: ['./select-exercise.component.scss'],
 })
 export class SelectExerciseComponent implements OnInit {
-  constructor(
-    private exerciseService: ExerciseService,
-    private router: Router
-  ) {
+  constructor(private database: DatabaseService, private router: Router) {
     addIcons({ fitnessOutline, barbell, bodyOutline });
   }
 
   async ngOnInit(): Promise<void> {
-    this.exercises = await this.exerciseService.getExercises();
+    await this.loadExercises();
+  }
+
+  async loadExercises(): Promise<void> {
+    this.loading = true;
+    try {
+      this.exercises = await this.database.getExercises();
+    } finally {
+      this.loading = false;
+    }
   }
 
   searchText = '';
   isFocused = false;
   selectedEquipment: any = null;
   exercises: any[] = [];
+  loading: boolean = false;
 
   get filteredEquipment() {
     return this.exercises.filter((item) =>
@@ -50,29 +64,36 @@ export class SelectExerciseComponent implements OnInit {
     }
   }
 
-  selectEquipment(item: any) {
+  
+  async selectEquipment(item: any) {
     this.selectedEquipment = item;
     console.log('Selected equipment:', item);
     this.isFocused = false;
-    switch (item.type) {
-      case 'Strength':
-        this.router.navigate(['/add_workout/add_strength'], {
-          state: { equipment: item },
-        });
-        break;
-      case 'Cardio':
-        this.router.navigate(['/add_workout/add_cardio'], {
-          state: { equipment: item },
-        });
-        break;
-      case 'Bodyweight':
-        this.router.navigate(['/add_workout/add_bodyweight'], {
-          state: { equipment: item },
-        });
-        break;
-      default:
-        console.error('Unknown equipment type:', item.type);
-        break;
+
+    this.loading = true; // Spinner anzeigen während Navigation vorbereitet wird
+    try {
+      switch (item.type) {
+        case 'Strength':
+          await this.router.navigate(['/add_workout/add_strength'], {
+            state: { equipment: item },
+          });
+          break;
+        case 'Cardio':
+          await this.router.navigate(['/add_workout/add_cardio'], {
+            state: { equipment: item },
+          });
+          break;
+        case 'Bodyweight':
+          await this.router.navigate(['/add_workout/add_bodyweight'], {
+            state: { equipment: item },
+          });
+          break;
+        default:
+          console.error('Unknown equipment type:', item.type);
+          break;
+      }
+    } finally {
+      this.loading = false; // Spinner ausblenden
     }
   }
 
@@ -82,7 +103,7 @@ export class SelectExerciseComponent implements OnInit {
 
   saveExercise = async (): Promise<boolean> => {
     // deine Speicherlogik hier
-    console.log('Exercise saved:', this.selectedEquipment);
+    console.log('Exercise finished and saved.');
     return true;
   };
 }

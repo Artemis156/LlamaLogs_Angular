@@ -9,6 +9,9 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import { fitnessOutline } from 'ionicons/icons';
+import { DatabaseWorkoutService } from 'src/app/services/database_workout.service';
+import { Exercise } from 'src/app/services/database.service';
+import { SpinnerComponent } from 'src/app/spinner/spinner.component';
 
 @Component({
   selector: 'app-add-bodyweigth',
@@ -22,27 +25,54 @@ import { fitnessOutline } from 'ionicons/icons';
     CommonModule,
     FormsModule,
     IonicModule,
+    SpinnerComponent,
   ],
 })
 export class AddBodyweigthComponent {
-  selectedEquipment: any;
+  selectedEquipment: Exercise | null = null;
   reps: number | null = null;
+  loading: boolean = false;
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private databaseWorkout: DatabaseWorkoutService
+  ) {
     addIcons({ fitnessOutline });
     const nav = this.router.getCurrentNavigation();
     this.selectedEquipment = nav?.extras.state?.['equipment'] ?? null;
   }
 
   saveExercise = async (): Promise<boolean> => {
-    // deine Speicherlogik hier
-    console.log('Exercise saved:', this.selectedEquipment, this.reps);
-    return true;
+    this.loading = true;
+    try {
+      await this.databaseWorkout.addBodyweightExercise(
+        1, // Beispielhafte workout_id, sollte durch die tatsächliche ID ersetzt werden
+        this.selectedEquipment ? this.selectedEquipment.id : 0,
+        this.reps ? this.reps : 0,
+        ''
+      );
+
+      console.log('Exercise saved:', this.selectedEquipment, this.reps);
+      return true;
+    } finally {
+      this.loading = false;
+    }
   };
 
   finishWorkout = async (): Promise<boolean> => {
-    // deine Speicherlogik hier
-    console.log('Workout finished:', this.selectedEquipment, this.reps);
-    return true;
+    this.loading = true;
+    try {
+      await this.databaseWorkout.addBodyweightExercise(
+        1, // Beispielhafte workout_id, sollte durch die tatsächliche ID ersetzt werden
+        this.selectedEquipment ? this.selectedEquipment.id : 0,
+        this.reps ? this.reps : 0,
+        ''
+      );
+
+      console.log('Workout finished:', this.selectedEquipment, this.reps);
+      return true;
+    } finally {
+      this.loading = false;
+    }
   };
 }

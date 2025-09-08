@@ -49,8 +49,5 @@ export class EditModalComponent {
       type: this.editType,
       description: this.editDescription,
     });
-    this.editName = '';
-    this.editType = 'Strength';
-    this.editDescription = '';
   }
 }
