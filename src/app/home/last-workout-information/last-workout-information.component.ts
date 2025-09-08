@@ -12,7 +12,7 @@ import { DatabaseWorkoutService } from 'src/app/services/database_workout.servic
 export class LastWorkoutInformationComponent implements OnInit {
   distanceUnit: 'km' | 'mi';
 
-  exerciseData: any = null;
+  exerciseData: any[] = [];
 
   constructor(
     private distanceUnitService: DistanceUnitService,
@@ -30,10 +30,12 @@ export class LastWorkoutInformationComponent implements OnInit {
 
   async loadLastWorkout() {
     try {
-      this.exerciseData = await this.databaseWorkout.getLastWorkout();
+      const data = await this.databaseWorkout.getLastWorkout();
+      this.exerciseData = data ?? []; // falls null → leeres Array
       console.log('Last workout data:', this.exerciseData);
     } catch (error) {
       console.error('Error loading last workout:', error);
+      this.exerciseData = [];
     }
   }
 }
