@@ -37,6 +37,14 @@ export class DatabaseWorkoutService {
 
     await this.db.execute(schema);
 
+    let initData = `
+      INSERT INTO workouts (date, note) VALUES
+      ('2023-10-01', 'Morning workout session.'),
+      ('2023-10-02', 'Evening cardio session.');
+    `;
+
+    await this.db.execute(initData);
+
     schema = `
         CREATE TABLE IF NOT EXISTS workout_exercises (
           id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -51,7 +59,15 @@ export class DatabaseWorkoutService {
         );
     `;
 
+    initData = `
+      INSERT INTO workout_exercises (workout_id, exercise_id, sets, reps, duration, distance, calories, note) VALUES
+      (1, 1, 3, 10, NULL, NULL, NULL, 'Felt strong today.'),
+      (1, 2, 4, 12, NULL, NULL, NULL, 'Good form.'),
+    `;  
+
     await this.db.execute(schema);
+
+    await this.db.execute(initData);
 
     schema = `
         CREATE TABLE IF NOT EXISTS workout_exercise_sets (
