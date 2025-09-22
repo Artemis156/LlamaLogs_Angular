@@ -5,7 +5,7 @@ import {
   SQLiteDBConnection,
 } from '@capacitor-community/sqlite';
 
-const DB = 'llamaLogsDB';
+const DB = 'llamaLogsWorkoutDB';
 
 @Injectable({
   providedIn: 'root',
