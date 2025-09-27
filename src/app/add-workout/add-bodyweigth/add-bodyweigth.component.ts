@@ -9,9 +9,9 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import { fitnessOutline } from 'ionicons/icons';
-import { DatabaseWorkoutService } from 'src/app/services/database_workout.service';
 import { Exercise } from 'src/app/services/database.service';
 import { SpinnerComponent } from 'src/app/spinner/spinner.component';
+import { DatabaseService } from 'src/app/services/database.service';
 
 @Component({
   selector: 'app-add-bodyweigth',
@@ -35,7 +35,7 @@ export class AddBodyweigthComponent {
 
   constructor(
     private router: Router,
-    private databaseWorkout: DatabaseWorkoutService
+    private database: DatabaseService
   ) {
     addIcons({ fitnessOutline });
     const nav = this.router.getCurrentNavigation();
@@ -45,7 +45,7 @@ export class AddBodyweigthComponent {
   saveExercise = async (): Promise<boolean> => {
     this.loading = true;
     try {
-      await this.databaseWorkout.addBodyweightExercise(
+      await this.database.addBodyweightExercise(
         1, // Beispielhafte workout_id, sollte durch die tatsächliche ID ersetzt werden
         this.selectedEquipment ? this.selectedEquipment.id : 0,
         this.reps ? this.reps : 0,
@@ -62,7 +62,7 @@ export class AddBodyweigthComponent {
   finishWorkout = async (): Promise<boolean> => {
     this.loading = true;
     try {
-      await this.databaseWorkout.addBodyweightExercise(
+      await this.database.addBodyweightExercise(
         1, // Beispielhafte workout_id, sollte durch die tatsächliche ID ersetzt werden
         this.selectedEquipment ? this.selectedEquipment.id : 0,
         this.reps ? this.reps : 0,

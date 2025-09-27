@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { DistanceUnitService } from 'src/app/services/distance_unit.service';
-import { DatabaseWorkoutService } from 'src/app/services/database_workout.service';
+import { DatabaseService } from 'src/app/services/database.service';
 @Component({
   selector: 'app-last-workout-information',
   templateUrl: './last-workout-information.component.html',
@@ -16,7 +16,7 @@ export class LastWorkoutInformationComponent implements OnInit {
 
   constructor(
     private distanceUnitService: DistanceUnitService,
-    private databaseWorkout: DatabaseWorkoutService
+    private database: DatabaseService
   ) {
     this.distanceUnit = this.distanceUnitService.getCurrentUnit();
   }
@@ -30,7 +30,7 @@ export class LastWorkoutInformationComponent implements OnInit {
 
   async loadLastWorkout() {
     try {
-      const data = await this.databaseWorkout.getLastWorkout();
+      const data = await this.database.getLastWorkout();
       this.exerciseData = data ?? []; // falls null → leeres Array
       console.log('Last workout data:', this.exerciseData);
     } catch (error) {
