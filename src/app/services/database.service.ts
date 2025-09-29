@@ -45,11 +45,9 @@ export class DatabaseService {
   `;
 
     await this.db.execute(schema);
-    const result = await this.db.query(
-      'SELECT COUNT(*) as count FROM exercises'
-    );
+    let result = await this.db.query('SELECT COUNT(*) as count FROM exercises');
 
-    const count =
+    let count =
       result.values && result.values.length > 0 ? result.values[0].count : 0;
 
     if (count === 0) {
@@ -77,14 +75,20 @@ export class DatabaseService {
     `;
 
     await this.db.execute(schema);
+    result = await this.db.query('SELECT COUNT(*) as count FROM workouts');
 
-    let initData = `
+    count =
+      result.values && result.values.length > 0 ? result.values[0].count : 0;
+
+    if (count > 0) {
+      let initData = `
       INSERT INTO workouts (date, note) VALUES
       ('2023-10-01', 'Morning workout session.'),
       ('2023-10-02', 'Evening cardio session.');
     `;
 
-    await this.db.execute(initData);
+      await this.db.execute(initData);
+    }
 
     schema = `
         CREATE TABLE IF NOT EXISTS workout_exercises (
@@ -99,16 +103,23 @@ export class DatabaseService {
           note TEXT
         );
     `;
-
-    initData = `
-      INSERT INTO workout_exercises (workout_id, exercise_id, sets, reps, duration, distance, calories, note) VALUES
-      (1, 1, 3, 10, NULL, NULL, NULL, 'Felt strong today.'),
-      (1, 2, 4, 12, NULL, NULL, NULL, 'Good form.'),
-    `;
-
     await this.db.execute(schema);
 
-    await this.db.execute(initData);
+    result = await this.db.query(
+      'SELECT COUNT(*) as count FROM workout_exercises'
+    );
+
+    count =
+      result.values && result.values.length > 0 ? result.values[0].count : 0;
+    if (count > 0) {
+      let initData = `
+      INSERT INTO workout_exercises (workout_id, exercise_id, sets, reps, duration, distance, calories, note) VALUES
+      (1, 1, 3, 10, NULL, NULL, NULL, 'Felt strong today.'),
+      (1, 2, 4, 12, NULL, NULL, NULL, 'Good form.');
+    `;
+
+      await this.db.execute(initData);
+    }
 
     schema = `
         CREATE TABLE IF NOT EXISTS workout_exercise_sets (
