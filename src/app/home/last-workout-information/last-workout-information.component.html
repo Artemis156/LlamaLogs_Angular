@@ -1,4 +1,6 @@
 <div class="container">
+  <app-spinner [visible]="loading"></app-spinner>
+
   <ng-container *ngIf="exerciseData && exerciseData.length > 0; else noData">
     <div class="exercise-card" *ngFor="let ex of exerciseData">
       <h3 class="exercise-name">{{ ex.name }}</h3>

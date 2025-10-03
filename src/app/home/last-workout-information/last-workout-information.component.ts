@@ -6,16 +6,18 @@ import {
   DatabaseService,
   WorkoutExercise,
 } from 'src/app/services/database.service';
+import { SpinnerComponent } from 'src/app/spinner/spinner.component';
 
 @Component({
   selector: 'app-last-workout-information',
   templateUrl: './last-workout-information.component.html',
   styleUrls: ['./last-workout-information.component.scss'],
-  imports: [IonicModule, CommonModule],
+  imports: [IonicModule, CommonModule, SpinnerComponent],
 })
 export class LastWorkoutInformationComponent implements OnInit {
   distanceUnit: 'km' | 'mi';
   exerciseData: WorkoutExercise[] = [];
+  loading: boolean = false;
 
   constructor(
     private distanceUnitService: DistanceUnitService,
@@ -28,21 +30,17 @@ export class LastWorkoutInformationComponent implements OnInit {
     this.distanceUnitService.distanceUnit$.subscribe((unit) => {
       this.distanceUnit = unit;
     });
-    effect(() => {
-      this.exerciseData = this.database.getLastWorkoutSignal()();
-    });
-
-    this.database.refreshLastWorkout();
+    await this.loadLastWorkout();
   }
 
-  /*async loadLastWorkout() {
+  async loadLastWorkout() {
+    this.loading = true;
     try {
-      const data = await this.database.getLastWorkout();
-      this.exerciseData = data;
-      console.log('Last workout data:', this.exerciseData);
+      this.exerciseData = await this.database.getLastWorkout();
     } catch (error) {
-      console.error('Error loading last workout:', error);
       this.exerciseData = [];
+    } finally {
+      this.loading = false;
     }
-  }*/
+  }
 }
