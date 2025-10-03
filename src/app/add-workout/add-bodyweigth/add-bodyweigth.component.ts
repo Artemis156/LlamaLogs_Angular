@@ -48,28 +48,8 @@ export class AddBodyweigthComponent {
       await this.database.addBodyweightExercise(
         1, // Beispielhafte workout_id, sollte durch die tatsächliche ID ersetzt werden
         this.selectedEquipment ? this.selectedEquipment.id : 0,
-        this.reps ? this.reps : 0,
-        ''
+        this.reps ? this.reps : 0
       );
-
-      console.log('Exercise saved:', this.selectedEquipment, this.reps);
-      return true;
-    } finally {
-      this.loading = false;
-    }
-  };
-
-  finishWorkout = async (): Promise<boolean> => {
-    this.loading = true;
-    try {
-      await this.database.addBodyweightExercise(
-        1, // Beispielhafte workout_id, sollte durch die tatsächliche ID ersetzt werden
-        this.selectedEquipment ? this.selectedEquipment.id : 0,
-        this.reps ? this.reps : 0,
-        ''
-      );
-
-      console.log('Workout finished:', this.selectedEquipment, this.reps);
       return true;
     } finally {
       this.loading = false;

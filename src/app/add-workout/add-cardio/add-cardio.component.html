@@ -1,4 +1,6 @@
 <ion-content class="liquid-background" fullscreen>
+  <app-spinner [visible]="loading"></app-spinner>
+
   <div class="heading-row">
     <h1 class="heading-text">Workout Tracking</h1>
     <ion-icon name="fitness-outline" class="heading-icon"></ion-icon>
@@ -53,7 +55,7 @@
     [disabled]="!isValidCardio()"
   ></app-next-button>
   <app-finish-button
-    [saveExercise]="finishWorkout"
+    [saveExercise]="saveExercise"
     [disabled]="!isValidCardio()"
   ></app-finish-button>
 </ion-content>

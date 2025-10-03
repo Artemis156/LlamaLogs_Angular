@@ -44,6 +44,7 @@ export class DatabaseService {
   private sqlite: SQLiteConnection = new SQLiteConnection(CapacitorSQLite);
   private db!: SQLiteDBConnection;
   private exercise: WritableSignal<Exercise[]> = signal([]);
+  private lastWorkout = signal<WorkoutExercise[]>([]);
 
   constructor() {}
 
@@ -208,39 +209,79 @@ export class DatabaseService {
     workoutId: number,
     exerciseId: number,
     reps: number,
-    note: string
+    note?: string
   ): Promise<number> {
     const res = await this.db.run(
       `INSERT INTO workout_exercises (workout_id, exercise_id, reps, note) VALUES (?, ?, ?, ?)`,
-      [workoutId, exerciseId, reps, note]
+      [workoutId, exerciseId, reps, note ?? null]
     );
+    await this.refreshLastWorkout();
     return res.changes?.lastId ?? -1;
   }
 
-  async getLastWorkoutBodyweight() {
-    const res = await this.db.query(
-      `SELECT * FROM workout_exercises 
-     WHERE workout_id = (SELECT MAX(workout_id) FROM workout_exercises) 
-     AND reps IS NOT NULL`
+  async addCardioExercise(
+    workoutId: number,
+    exerciseId: number,
+    duration: number,
+    distance: number,
+    calories?: number,
+    note?: string
+  ): Promise<number> {
+    const res = await this.db.run(
+      `INSERT INTO workout_exercises (workout_id, exercise_id, duration, distance, calories, note) VALUES (?, ?, ?, ?, ?, ?)`,
+      [
+        workoutId,
+        exerciseId,
+        duration,
+        distance,
+        calories ?? null,
+        note ?? null,
+      ]
     );
-    return res.values ?? [];
+    await this.refreshLastWorkout();
+    return res.changes?.lastId ?? -1;
   }
 
-  /*async getLastWorkout() {
-    try {
-      const bodyweightData = await this.getLastWorkoutBodyweight();
-      if (!bodyweightData || bodyweightData.length === 0) {
-        console.log('Noch keine Workouts in der Datenbank gespeichert.');
-        return null;
-      }
-      return bodyweightData;
-    } catch (error) {
-      console.error('Fehler beim Laden des letzten Workouts:', error);
-      return null;
-    }
-  }*/
+  async addStrengthExercise(
+    workoutId: number,
+    exerciseId: number,
+    note?: string
+  ): Promise<number> {
+    const res = await this.db.run(
+      `INSERT INTO workout_exercises (workout_id, exercise_id, note) VALUES (?, ?, ?)`,
+      [workoutId, exerciseId, note ?? null]
+    );
+    await this.refreshLastWorkout();
+    return res.changes?.lastId ?? -1;
+  }
 
-  async getLastWorkout(): Promise<WorkoutExercise[]> {
+  async addStrengthSet(
+    workoutExerciseId: number,
+    weight: number,
+    repetitions: number
+  ): Promise<void> {
+    await this.db.run(
+      `INSERT INTO workout_exercise_sets (workout_exercise_id, weight, repetitions) VALUES (?, ?, ?)`,
+      [workoutExerciseId, weight, repetitions]
+    );
+    await this.refreshLastWorkout();
+  }
+
+  getLastWorkoutSignal() {
+    return this.lastWorkout.asReadonly();
+  }
+
+  async refreshLastWorkout() {
+    const res = await this.db.query(`
+    SELECT we.*, e.name, e.type as category
+    FROM workout_exercises we
+    JOIN exercises e ON we.exercise_id = e.id
+    WHERE we.workout_id = (SELECT MAX(workout_id) FROM workout_exercises)
+  `);
+    this.lastWorkout.set(res.values ?? []);
+  }
+
+  /*async getLastWorkout(): Promise<WorkoutExercise[]> {
     try {
       const res = await this.db.query(`
       SELECT we.*, e.name, e.type as category
@@ -258,6 +299,56 @@ export class DatabaseService {
       return values;
     } catch (error) {
       console.error('Fehler beim Laden des letzten Workouts:', error);
+      return [];
+    }
+  } */
+
+  async getLastEntryByExercise(exerciseName: string): Promise<any> {
+    try {
+      const res = await this.db.query(
+        `
+      SELECT we.*, w.date, e.name, e.type as category
+      FROM workout_exercises we
+      JOIN exercises e ON we.exercise_id = e.id
+      JOIN workouts w ON we.workout_id = w.id
+      WHERE e.name = ?
+      ORDER BY w.date DESC
+      LIMIT 1
+    `,
+        [exerciseName]
+      );
+      const values = res.values as any[] | undefined;
+
+      if (!values || values.length === 0) {
+        console.log('No previous entries found for this exercise.');
+        return null;
+      }
+      return values[0];
+    } catch (error) {
+      console.error('Error fetching last entry by exercise:', error);
+      return null;
+    }
+  }
+
+  async getLastSetsByWorkoutExerciseId(
+    workoutExerciseId: number
+  ): Promise<{ weight: number; repetitions: number }[]> {
+    try {
+      const res = await this.db.query(
+        `
+      SELECT weight, repetitions
+      FROM workout_exercise_sets
+      WHERE workout_exercise_id = ?
+      ORDER BY id DESC
+    `,
+        [workoutExerciseId]
+      );
+      const values = res.values as
+        | { weight: number; repetitions: number }[]
+        | undefined;
+      return values || [];
+    } catch (error) {
+      console.error('Error fetching last sets by workout exercise ID:', error);
       return [];
     }
   }

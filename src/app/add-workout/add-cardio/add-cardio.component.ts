@@ -10,6 +10,10 @@ import { IonicModule } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import { fitnessOutline } from 'ionicons/icons';
 import { DistanceUnitService } from 'src/app/services/distance_unit.service';
+import { SpinnerComponent } from 'src/app/spinner/spinner.component';
+import { DatabaseService } from 'src/app/services/database.service';
+
+
 
 @Component({
   selector: 'app-add-cardio',
@@ -23,6 +27,7 @@ import { DistanceUnitService } from 'src/app/services/distance_unit.service';
     CommonModule,
     FormsModule,
     IonicModule,
+    SpinnerComponent,
   ],
 })
 export class AddCardioComponent implements OnInit{
@@ -31,10 +36,12 @@ export class AddCardioComponent implements OnInit{
   distance: number | null = null;
   calories: number | null = null;
   distanceUnit: 'km' | 'mi' = 'km';
+  loading: boolean = false;
 
   constructor(
     private router: Router,
-    private distanceUnitService: DistanceUnitService
+    private distanceUnitService: DistanceUnitService,
+    private database: DatabaseService
   ) {
     addIcons({ fitnessOutline });
     const nav = this.router.getCurrentNavigation();
@@ -57,26 +64,17 @@ export class AddCardioComponent implements OnInit{
   }
 
   saveExercise = async (): Promise<boolean> => {
-    // deine Speicherlogik hier
-    console.log(
-      'Exercise saved:',
-      this.selectedEquipment.name,
-      this.duration,
-      this.distance,
-      this.calories
-    );
-    return true;
-  };
-
-  finishWorkout = async (): Promise<boolean> => {
-    // deine Speicherlogik hier
-    console.log(
-      'Workout finished:',
-      this.selectedEquipment,
-      this.duration,
-      this.distance,
-      this.calories
-    );
-    return true;
+    this.loading = true;
+    try {
+      await this.database.addCardioExercise(
+        1, // Beispielhafte workout_id, sollte durch die tatsächliche ID ersetzt werden
+        this.selectedEquipment ? this.selectedEquipment.id : 0,
+        this.duration ? this.duration : 0,
+        this.distance ? this.distance : 0
+      );
+      return true;
+    } finally {
+      this.loading = false;
+    }
   };
 }

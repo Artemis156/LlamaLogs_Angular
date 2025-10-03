@@ -14,6 +14,8 @@ import {
   addCircleOutline,
   removeCircleOutline,
 } from 'ionicons/icons';
+import { SpinnerComponent } from 'src/app/spinner/spinner.component';
+import { DatabaseService } from 'src/app/services/database.service';
 
 @Component({
   selector: 'app-add-strength',
@@ -27,6 +29,7 @@ import {
     CommonModule,
     FormsModule,
     IonicModule,
+    SpinnerComponent,
   ],
 })
 export class AddStrengthComponent implements OnInit {
@@ -35,10 +38,12 @@ export class AddStrengthComponent implements OnInit {
   strengthSets = [{ weight: '', reps: '' }];
   inputFocused = false;
   private focusTimeout: any;
+  loading: boolean = false;
 
   constructor(
     private router: Router,
-    private weightUnitService: WeightUnitService
+    private weightUnitService: WeightUnitService,
+    private database: DatabaseService
   ) {
     addIcons({ fitnessOutline, addCircleOutline, removeCircleOutline });
     const nav = this.router.getCurrentNavigation();
@@ -86,15 +91,22 @@ export class AddStrengthComponent implements OnInit {
   }
 
   saveExercise = async (): Promise<boolean> => {
-    // deine Speicherlogik hier
-    console.log('Exercise saved:', this.selectedEquipment, this.strengthSets);
-    this.strengthSets = [{ weight: '', reps: '' }];
-    return true;
-  };
-
-  finishWorkout = async (): Promise<boolean> => {
-    // deine Speicherlogik hier
-    console.log('Workout finished:', this.selectedEquipment, this.strengthSets);
+    this.loading = true;
+    try {
+      const workout_exercise_id = await this.database.addStrengthExercise(
+        1, // Beispielhafte workout_id, sollte durch die tatsächliche ID ersetzt werden
+        this.selectedEquipment ? this.selectedEquipment.id : 0
+      );
+      for (const set of this.strengthSets) {
+        await this.database.addStrengthSet(
+          workout_exercise_id,
+          parseFloat(set.weight),
+          parseInt(set.reps, 10)
+        );
+      }
+    } finally {
+      this.loading = false;
+    }
     this.strengthSets = [{ weight: '', reps: '' }];
     return true;
   };
