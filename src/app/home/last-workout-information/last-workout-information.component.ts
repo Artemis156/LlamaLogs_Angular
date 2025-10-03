@@ -3,16 +3,19 @@ import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { DistanceUnitService } from 'src/app/services/distance_unit.service';
 import { DatabaseService } from 'src/app/services/database.service';
+import { WorkoutExercise } from 'src/app/services/database.service';
+
+
 @Component({
   selector: 'app-last-workout-information',
   templateUrl: './last-workout-information.component.html',
   styleUrls: ['./last-workout-information.component.scss'],
   imports: [IonicModule, CommonModule],
 })
+
 export class LastWorkoutInformationComponent implements OnInit {
   distanceUnit: 'km' | 'mi';
-
-  exerciseData: any[] = [];
+  exerciseData: WorkoutExercise[] = [];
 
   constructor(
     private distanceUnitService: DistanceUnitService,
@@ -39,3 +42,4 @@ export class LastWorkoutInformationComponent implements OnInit {
     }
   }
 }
+

@@ -14,6 +14,29 @@ export interface Exercise {
   description: string;
 }
 
+export interface Workout {
+  id: number;
+  date: string; // ISO Datum als Text
+  note?: string; // optional
+}
+
+export type ExerciseCategory = 'Strength' | 'Cardio' | 'Bodyweight';
+
+export interface WorkoutExercise {
+  id: number;
+  workout_id: number;
+  exercise_id: number;
+  sets?: number;
+  reps?: number;
+  duration?: number;
+  distance?: number;
+  calories?: number;
+  note?: string;
+  // zusätzliche Felder aus JOIN
+  name?: string;
+  category?: ExerciseCategory;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -80,7 +103,7 @@ export class DatabaseService {
     count =
       result.values && result.values.length > 0 ? result.values[0].count : 0;
 
-    if (count > 0) {
+    if (count === 0) {
       let initData = `
       INSERT INTO workouts (date, note) VALUES
       ('2023-10-01', 'Morning workout session.'),
@@ -111,11 +134,10 @@ export class DatabaseService {
 
     count =
       result.values && result.values.length > 0 ? result.values[0].count : 0;
-    if (count > 0) {
+    if (count === 0) {
       let initData = `
       INSERT INTO workout_exercises (workout_id, exercise_id, sets, reps, duration, distance, calories, note) VALUES
-      (1, 1, 3, 10, NULL, NULL, NULL, 'Felt strong today.'),
-      (1, 2, 4, 12, NULL, NULL, NULL, 'Good form.');
+      (1, 4, 3, 10, 10, 10, 10, 'Felt strong today.');
     `;
 
       await this.db.execute(initData);
@@ -218,25 +240,25 @@ export class DatabaseService {
     }
   }*/
 
-  async getLastWorkout() {
+  async getLastWorkout(): Promise<WorkoutExercise[] | null> {
     try {
       const res = await this.db.query(`
-      SELECT we.id, we.sets, we.reps, we.duration, we.distance, we.calories, we.note,
-             e.name, e.type as category, e.description
+      SELECT we.*, e.name, e.type as category
       FROM workout_exercises we
       JOIN exercises e ON we.exercise_id = e.id
-      WHERE we.workout_id = (SELECT MAX(workout_id) FROM workout_exercises);
+      WHERE we.workout_id = (SELECT MAX(workout_id) FROM workout_exercises)
     `);
 
-      if (!res.values || res.values.length === 0) {
-        console.log('Noch keine Workouts in der Datenbank gespeichert.');
-        return [];
-      }
+      const values = res.values as WorkoutExercise[] | undefined;
 
-      return res.values;
+      if (!values || values.length === 0) {
+        console.log('Noch keine Workouts in der Datenbank gespeichert.');
+        return null;
+      }
+      return values;
     } catch (error) {
       console.error('Fehler beim Laden des letzten Workouts:', error);
-      return [];
+      return null;
     }
   }
 }

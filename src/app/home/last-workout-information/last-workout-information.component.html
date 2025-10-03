@@ -1,22 +1,33 @@
 <div class="container">
-  <ng-container *ngIf="exerciseData.length > 0">
+  <ng-container *ngIf="exerciseData && exerciseData.length > 0; else noData">
     <div class="exercise-card" *ngFor="let ex of exerciseData">
       <h3 class="exercise-name">{{ ex.name }}</h3>
       <p class="category">Category: {{ ex.category }}</p>
 
+      <!-- Cardio -->
       <p class="detail" *ngIf="ex.category === 'Cardio'">
-        Duration: {{ ex.duration }} min · Distance: {{ ex.distance }} {{ distanceUnit }} · Calories: {{ ex.calories }}
+        <span *ngIf="ex.duration">Duration: {{ ex.duration }} min</span>
+        <span *ngIf="ex.distance"> · Distance: {{ ex.distance }} {{ distanceUnit }}</span>
+        <span *ngIf="ex.calories"> · Calories: {{ ex.calories }}</span>
       </p>
 
+      <!-- Strength -->
       <p class="detail" *ngIf="ex.category === 'Strength'">
-        Sets: {{ ex.sets }} · Reps: {{ ex.reps }}
+        <span *ngIf="ex.sets">Sets: {{ ex.sets }}</span>
+        <span *ngIf="ex.reps"> · Reps: {{ ex.reps }}</span>
       </p>
 
+      <!-- Bodyweight -->
       <p class="detail" *ngIf="ex.category === 'Bodyweight'">
-        Reps: {{ ex.reps }}
+        <span *ngIf="ex.reps">Reps: {{ ex.reps }}</span>
       </p>
+
+      <!-- Notiz (falls vorhanden) -->
+      <p class="note" *ngIf="ex.note">Note: {{ ex.note }}</p>
     </div>
   </ng-container>
 
-  <p class="no-data" *ngIf="exerciseData.length === 0">No exercises found.</p>
+  <ng-template #noData>
+    <p class="no-data">No exercises found.</p>
+  </ng-template>
 </div>
