@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { DistanceUnitService } from 'src/app/services/distance_unit.service';
-import { DatabaseService } from 'src/app/services/database.service';
-import { WorkoutExercise } from 'src/app/services/database.service';
+import { DatabaseService, WorkoutExercise } from 'src/app/services/database.service';
 
 
 @Component({
@@ -24,17 +23,17 @@ export class LastWorkoutInformationComponent implements OnInit {
     this.distanceUnit = this.distanceUnitService.getCurrentUnit();
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.distanceUnitService.distanceUnit$.subscribe((unit) => {
       this.distanceUnit = unit;
     });
-    this.loadLastWorkout();
+    await this.loadLastWorkout();
   }
 
   async loadLastWorkout() {
     try {
       const data = await this.database.getLastWorkout();
-      this.exerciseData = data ?? []; // falls null → leeres Array
+      this.exerciseData = data; // falls null → leeres Array
       console.log('Last workout data:', this.exerciseData);
     } catch (error) {
       console.error('Error loading last workout:', error);

@@ -33,8 +33,8 @@ export interface WorkoutExercise {
   calories?: number;
   note?: string;
   // zusätzliche Felder aus JOIN
-  name?: string;
-  category?: ExerciseCategory;
+  name: string;
+  category: ExerciseCategory;
 }
 
 @Injectable({
@@ -240,7 +240,7 @@ export class DatabaseService {
     }
   }*/
 
-  async getLastWorkout(): Promise<WorkoutExercise[] | null> {
+  async getLastWorkout(): Promise<WorkoutExercise[]> {
     try {
       const res = await this.db.query(`
       SELECT we.*, e.name, e.type as category
@@ -253,12 +253,12 @@ export class DatabaseService {
 
       if (!values || values.length === 0) {
         console.log('Noch keine Workouts in der Datenbank gespeichert.');
-        return null;
+        return [];
       }
       return values;
     } catch (error) {
       console.error('Fehler beim Laden des letzten Workouts:', error);
-      return null;
+      return [];
     }
   }
 }
