@@ -204,7 +204,7 @@ export class DatabaseService {
     return res.values ?? [];
   }
 
-  async getLastWorkout() {
+  /*async getLastWorkout() {
     try {
       const bodyweightData = await this.getLastWorkoutBodyweight();
       if (!bodyweightData || bodyweightData.length === 0) {
@@ -215,6 +215,28 @@ export class DatabaseService {
     } catch (error) {
       console.error('Fehler beim Laden des letzten Workouts:', error);
       return null;
+    }
+  }*/
+
+  async getLastWorkout() {
+    try {
+      const res = await this.db.query(`
+      SELECT we.id, we.sets, we.reps, we.duration, we.distance, we.calories, we.note,
+             e.name, e.type as category, e.description
+      FROM workout_exercises we
+      JOIN exercises e ON we.exercise_id = e.id
+      WHERE we.workout_id = (SELECT MAX(workout_id) FROM workout_exercises);
+    `);
+
+      if (!res.values || res.values.length === 0) {
+        console.log('Noch keine Workouts in der Datenbank gespeichert.');
+        return [];
+      }
+
+      return res.values;
+    } catch (error) {
+      console.error('Fehler beim Laden des letzten Workouts:', error);
+      return [];
     }
   }
 }
