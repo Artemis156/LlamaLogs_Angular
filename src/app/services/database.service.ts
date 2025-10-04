@@ -45,10 +45,7 @@ export class DatabaseService {
   private sqlite: SQLiteConnection = new SQLiteConnection(CapacitorSQLite);
   private db!: SQLiteDBConnection;
   private exercise: WritableSignal<Exercise[]> = signal([]);
-  //private lastWorkout: WritableSignal<WorkoutExercise[]> = signal([]);
-  private lastExerciseByID: WritableSignal<WorkoutExercise> = signal(
-    {} as WorkoutExercise
-  );
+
 
   constructor() {}
 
@@ -294,19 +291,14 @@ export class DatabaseService {
     }
   }
 
-  async getLastExerciseByID(exerciseId: number): Promise<WorkoutExercise> {
-    await this.loadExerciseData(exerciseId);
-    return this.lastExerciseByID();
-  }
-
-  async loadExerciseData(exerciseId: number) {
+  async getLastExerciseByID(exerciseId: number): Promise<WorkoutExercise | null> {
     const res = await this.db.query(
       `
       SELECT we.*, w.date, e.name, e.type as category
       FROM workout_exercises we
       JOIN exercises e ON we.exercise_id = e.id
       JOIN workouts w ON we.workout_id = w.id
-      WHERE we.id = ?
+      WHERE we.exercise_id = ?
       ORDER BY w.date DESC
       LIMIT 1
     `,
@@ -316,10 +308,9 @@ export class DatabaseService {
 
     if (!values || values.length === 0) {
       console.log('No previous entries found for this exercise.');
-      this.lastExerciseByID.set({} as WorkoutExercise);
+      return null;
     } else {
-      this.lastExerciseByID.set(values[0] as WorkoutExercise);
-    }
+      return values[0] as WorkoutExercise;}
   }
 
   async getLastSetsByWorkoutExerciseId(
