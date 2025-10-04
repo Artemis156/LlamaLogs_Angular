@@ -97,7 +97,9 @@ export class AddStrengthComponent implements OnInit {
     try {
       const workout_exercise_id = await this.database.addStrengthExercise(
         this.workoutId,
-        this.selectedEquipment ? this.selectedEquipment.id : 0
+        this.selectedEquipment ? this.selectedEquipment.id : 0,
+        this.strengthSets.length,
+        this.strengthSets.reduce((total, set) => total + parseInt(set.reps, 10), 0)
       );
       for (const set of this.strengthSets) {
         await this.database.addStrengthSet(

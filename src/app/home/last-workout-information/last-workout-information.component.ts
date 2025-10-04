@@ -7,6 +7,8 @@ import {
   WorkoutExercise,
 } from 'src/app/services/database.service';
 import { SpinnerComponent } from 'src/app/spinner/spinner.component';
+import { Subscription } from 'rxjs';
+import { RefreshService } from 'src/app/services/refresh.service';
 
 @Component({
   selector: 'app-last-workout-information',
@@ -19,22 +21,32 @@ export class LastWorkoutInformationComponent implements OnInit {
   exerciseData: WorkoutExercise[] = [];
   loading: boolean = false;
 
+  private subscriptions: Subscription[] = [];
+
   constructor(
     private distanceUnitService: DistanceUnitService,
-    private database: DatabaseService
+    private database: DatabaseService,
+    private refreshService: RefreshService
   ) {
     this.distanceUnit = this.distanceUnitService.getCurrentUnit();
   }
 
   async ngOnInit() {
+    this.subscriptions.push(
     this.distanceUnitService.distanceUnit$.subscribe((unit) => {
       this.distanceUnit = unit;
-    });
+    }));
+
+    this.subscriptions.push(
+    this.refreshService.onRefresh.subscribe(() => {
+      this.loadLastWorkout();
+    }));
+    
     await this.loadLastWorkout();
   }
 
-  async ionViewWillEnter() {
-    await this.loadLastWorkout();
+  ngOnDestroy() {
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
   }
 
   async loadLastWorkout() {

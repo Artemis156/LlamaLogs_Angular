@@ -103,20 +103,6 @@ export class DatabaseService {
     `;
 
     await this.db.execute(schema);
-    result = await this.db.query('SELECT COUNT(*) as count FROM workouts');
-
-    count =
-      result.values && result.values.length > 0 ? result.values[0].count : 0;
-
-    if (count === 0) {
-      let initData = `
-      INSERT INTO workouts (date, note) VALUES
-      ('2023-10-01', 'Morning workout session.'),
-      ('2023-10-03', 'Evening cardio session.');
-    `;
-
-      await this.db.execute(initData);
-    }
 
     schema = `
         CREATE TABLE IF NOT EXISTS workout_exercises (
@@ -132,24 +118,6 @@ export class DatabaseService {
         );
     `;
     await this.db.execute(schema);
-
-    result = await this.db.query(
-      'SELECT COUNT(*) as count FROM workout_exercises'
-    );
-
-    count =
-      result.values && result.values.length > 0 ? result.values[0].count : 0;
-    if (count === 0) {
-      let initData = `
-      INSERT INTO workout_exercises (workout_id, exercise_id, sets, reps, duration, distance, calories, note) VALUES
-      (1, 4, 3, 10, 10, 10, 10, 'Felt strong today.');
-      (1, 1, 4, 8, NULL, NULL, NULL, 'Increased weight.'),
-      (2, 3, NULL, NULL, 30, 5, 300, 'Good endurance.'),
-      (2, 5, NULL, NULL, 20, 8, 250, 'Challenging but manageable.');
-    `;
-
-      await this.db.execute(initData);
-    }
 
     schema = `
         CREATE TABLE IF NOT EXISTS workout_exercise_sets (
@@ -250,11 +218,13 @@ export class DatabaseService {
   async addStrengthExercise(
     workoutId: number,
     exerciseId: number,
+    sets: number,
+    reps: number,
     note?: string
   ): Promise<number> {
     const res = await this.db.run(
-      `INSERT INTO workout_exercises (workout_id, exercise_id, note) VALUES (?, ?, ?)`,
-      [workoutId, exerciseId, note ?? null]
+      `INSERT INTO workout_exercises (workout_id, exercise_id, sets, reps, note) VALUES (?, ?, ?, ?, ?)`,
+      [workoutId, exerciseId, sets, reps, note ?? null]
     );
     return res.changes?.lastId ?? -1;
   }
@@ -275,12 +245,18 @@ export class DatabaseService {
     try {
       const res = await this.db.query(
         `
-      SELECT we.*, e.name, e.type as category
-      FROM workout_exercises we
-      JOIN exercises e ON we.exercise_id = e.id
-      JOIN workouts w ON we.workout_id = w.id
-      WHERE w.date = (SELECT MAX(date) FROM workouts)
-    `
+        SELECT we.*, e.name, e.type as category
+        FROM workout_exercises we
+        JOIN exercises e ON we.exercise_id = e.id
+        JOIN workouts w ON we.workout_id = w.id
+        
+        WHERE w.id = (
+            SELECT id 
+            FROM workouts 
+            ORDER BY date DESC, id DESC
+            LIMIT 1
+        )
+      `
       );
       const values = res.values as WorkoutExercise[] | undefined;
 
@@ -305,7 +281,7 @@ export class DatabaseService {
       JOIN exercises e ON we.exercise_id = e.id
       JOIN workouts w ON we.workout_id = w.id
       WHERE we.exercise_id = ?
-      ORDER BY w.date DESC
+      ORDER BY w.date DESC, we.id DESC
       LIMIT 1
     `,
       [exerciseId]
