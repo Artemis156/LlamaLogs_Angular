@@ -1,4 +1,4 @@
-import { Component, effect, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { DistanceUnitService } from 'src/app/services/distance_unit.service';
@@ -33,7 +33,7 @@ export class LastWorkoutInformationComponent implements OnInit {
     //await this.loadLastWorkout();
   }
 
-  async ionFiewWillEnter() {
+  async ionViewWillEnter() {
     await this.loadLastWorkout();
   }
 
