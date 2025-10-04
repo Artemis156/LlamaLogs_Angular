@@ -45,7 +45,7 @@ export class DatabaseService {
   private sqlite: SQLiteConnection = new SQLiteConnection(CapacitorSQLite);
   private db!: SQLiteDBConnection;
   private exercise: WritableSignal<Exercise[]> = signal([]);
-  private lastWorkout: WritableSignal<WorkoutExercise[]> = signal([]);
+  //private lastWorkout: WritableSignal<WorkoutExercise[]> = signal([]);
   private lastExerciseByID: WritableSignal<WorkoutExercise> = signal(
     {} as WorkoutExercise
   );
@@ -219,7 +219,6 @@ export class DatabaseService {
       `INSERT INTO workout_exercises (workout_id, exercise_id, reps, note) VALUES (?, ?, ?, ?)`,
       [workoutId, exerciseId, reps, note ?? null]
     );
-    await this.refreshLastWorkout();
     return res.changes?.lastId ?? -1;
   }
 
@@ -242,7 +241,6 @@ export class DatabaseService {
         note ?? null,
       ]
     );
-    await this.refreshLastWorkout();
     return res.changes?.lastId ?? -1;
   }
 
@@ -255,7 +253,6 @@ export class DatabaseService {
       `INSERT INTO workout_exercises (workout_id, exercise_id, note) VALUES (?, ?, ?)`,
       [workoutId, exerciseId, note ?? null]
     );
-    await this.refreshLastWorkout();
     return res.changes?.lastId ?? -1;
   }
 
@@ -270,18 +267,28 @@ export class DatabaseService {
     );
   }
 
-  getLastWorkout(): WorkoutExercise[] {
-    return this.lastWorkout();
-  }
+  async getLastWorkout(): Promise<WorkoutExercise[]> {
+    try {
+      const res = await this.db.query(
+        `
+      SELECT we.*, e.name, e.type as category
+      FROM workout_exercises we
+      JOIN exercises e ON we.exercise_id = e.id
+      JOIN workouts w ON we.workout_id = w.id
+      WHERE w.date = (SELECT MAX(date) FROM workouts)
+    `
+      );
+      const values = res.values as WorkoutExercise[] | undefined;
 
-  async refreshLastWorkout() {
-    const res = await this.db.query(`
-    SELECT we.*, e.name, e.type as category
-    FROM workout_exercises we
-    JOIN exercises e ON we.exercise_id = e.id
-    WHERE we.workout_id = (SELECT MAX(workout_id) FROM workout_exercises)
-  `);
-    this.lastWorkout.set((res.values as WorkoutExercise[]) || []);
+      if (!values || values.length === 0) {
+        console.log('No exercises found for the last workout.');
+        return [];
+      }
+      return values;
+    } catch (error) {
+      console.error('Error fetching last workout:', error);
+      return [];
+    }
   }
 
   async getLastExerciseByID(exerciseId: number): Promise<WorkoutExercise> {
