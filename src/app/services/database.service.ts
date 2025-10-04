@@ -112,6 +112,7 @@ export class DatabaseService {
       let initData = `
       INSERT INTO workouts (date, note) VALUES
       ('2023-10-01', 'Morning workout session.'),
+      ('2023-10-03', 'Evening cardio session.');
     `;
 
       await this.db.execute(initData);
@@ -142,6 +143,9 @@ export class DatabaseService {
       let initData = `
       INSERT INTO workout_exercises (workout_id, exercise_id, sets, reps, duration, distance, calories, note) VALUES
       (1, 4, 3, 10, 10, 10, 10, 'Felt strong today.');
+      (1, 1, 4, 8, NULL, NULL, NULL, 'Increased weight.'),
+      (2, 3, NULL, NULL, 30, 5, 300, 'Good endurance.'),
+      (2, 5, NULL, NULL, 20, 8, 250, 'Challenging but manageable.');
     `;
 
       await this.db.execute(initData);
