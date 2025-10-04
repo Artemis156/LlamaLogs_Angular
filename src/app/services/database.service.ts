@@ -112,7 +112,6 @@ export class DatabaseService {
       let initData = `
       INSERT INTO workouts (date, note) VALUES
       ('2023-10-01', 'Morning workout session.'),
-      ('2023-10-02', 'Evening cardio session.');
     `;
 
       await this.db.execute(initData);

@@ -30,7 +30,7 @@ export class LastWorkoutInformationComponent implements OnInit {
     this.distanceUnitService.distanceUnit$.subscribe((unit) => {
       this.distanceUnit = unit;
     });
-    //await this.loadLastWorkout();
+    await this.loadLastWorkout();
   }
 
   async ionViewWillEnter() {
