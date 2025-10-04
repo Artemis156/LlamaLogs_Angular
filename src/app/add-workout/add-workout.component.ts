@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { addIcons } from 'ionicons';
 import { fitnessOutline } from 'ionicons/icons';
 import { Router } from '@angular/router';
+import { DatabaseService } from '../services/database.service';
 
 @Component({
   selector: 'app-add-workout',
@@ -12,16 +13,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-workout.component.scss'],
 })
 export class AddWorkoutComponent {
-  constructor(private router: Router) {
+  constructor(private router: Router, private database: DatabaseService) {
     addIcons({ fitnessOutline });
   }
 
   @Output() start = new EventEmitter<void>();
+  @Output() workoutId = new EventEmitter<number>();
 
-  handleStartWorkout() {
+  async handleStartWorkout() {
     console.log('Workout started');
-    // Database logic to add a new workout can be implemented here
+    const workoutId = await this.database.startWorkout();
     this.start.emit();
-    this.router.navigate(['/add_workout/select_exercise']);
+    this.workoutId.emit(workoutId);
+    this.router.navigate(['/add_workout/select_exercise'], {
+      state: { workoutId: workoutId },
+    });
   }
 }

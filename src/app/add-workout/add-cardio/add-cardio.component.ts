@@ -32,6 +32,7 @@ import { DatabaseService } from 'src/app/services/database.service';
 })
 export class AddCardioComponent implements OnInit{
   selectedEquipment: any;
+  workoutId: number = 0;
   duration: number | null = null;
   distance: number | null = null;
   calories: number | null = null;
@@ -46,6 +47,7 @@ export class AddCardioComponent implements OnInit{
     addIcons({ fitnessOutline });
     const nav = this.router.getCurrentNavigation();
     this.selectedEquipment = nav?.extras.state?.['equipment'] ?? null;
+    this.workoutId = nav?.extras.state?.['workoutId'] ?? 0;
   }
 
     ngOnInit() {
@@ -67,7 +69,7 @@ export class AddCardioComponent implements OnInit{
     this.loading = true;
     try {
       await this.database.addCardioExercise(
-        1, // Beispielhafte workout_id, sollte durch die tatsächliche ID ersetzt werden
+        this.workoutId,
         this.selectedEquipment ? this.selectedEquipment.id : 0,
         this.duration ? this.duration : 0,
         this.distance ? this.distance : 0

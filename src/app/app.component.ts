@@ -14,8 +14,8 @@ constructor(private database: DatabaseService) {
   this.initApp();
 }
 
-  async initApp() {
-    await this.database.initializPlugin();
+  initApp() {
+    //await this.database.initializPlugin();
     SplashScreen.hide();
   }
 }

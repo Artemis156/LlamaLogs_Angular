@@ -30,6 +30,7 @@ import { DatabaseService } from 'src/app/services/database.service';
 })
 export class AddBodyweigthComponent {
   selectedEquipment: Exercise | null = null;
+  workoutId: number = 0;
   reps: number | null = null;
   loading: boolean = false;
 
@@ -40,13 +41,14 @@ export class AddBodyweigthComponent {
     addIcons({ fitnessOutline });
     const nav = this.router.getCurrentNavigation();
     this.selectedEquipment = nav?.extras.state?.['equipment'] ?? null;
+    this.workoutId = nav?.extras.state?.['workoutId'] ?? 0;
   }
 
   saveExercise = async (): Promise<boolean> => {
     this.loading = true;
     try {
       await this.database.addBodyweightExercise(
-        1, // Beispielhafte workout_id, sollte durch die tatsächliche ID ersetzt werden
+        this.workoutId,
         this.selectedEquipment ? this.selectedEquipment.id : 0,
         this.reps ? this.reps : 0
       );

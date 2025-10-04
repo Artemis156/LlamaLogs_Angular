@@ -22,8 +22,12 @@ import { SpinnerComponent } from 'src/app/spinner/spinner.component';
   styleUrls: ['./select-exercise.component.scss'],
 })
 export class SelectExerciseComponent implements OnInit {
+
+  workoutId: number = 0;
+
   constructor(private database: DatabaseService, private router: Router) {
     addIcons({ fitnessOutline, barbell, bodyOutline });
+    this.workoutId = this.router.getCurrentNavigation()?.extras.state?.['workoutId'] ?? 0;
   }
 
   async ngOnInit(): Promise<void> {
@@ -75,17 +79,17 @@ export class SelectExerciseComponent implements OnInit {
       switch (item.type) {
         case 'Strength':
           await this.router.navigate(['/add_workout/add_strength'], {
-            state: { equipment: item },
+            state: { equipment: item , workoutId: this.workoutId},
           });
           break;
         case 'Cardio':
           await this.router.navigate(['/add_workout/add_cardio'], {
-            state: { equipment: item },
+            state: { equipment: item , workoutId: this.workoutId},
           });
           break;
         case 'Bodyweight':
           await this.router.navigate(['/add_workout/add_bodyweight'], {
-            state: { equipment: item },
+            state: { equipment: item , workoutId: this.workoutId},
           });
           break;
         default:
@@ -102,8 +106,6 @@ export class SelectExerciseComponent implements OnInit {
   }
 
   saveExercise = async (): Promise<boolean> => {
-    // deine Speicherlogik hier
-    console.log('Exercise finished and saved.');
     return true;
   };
 }

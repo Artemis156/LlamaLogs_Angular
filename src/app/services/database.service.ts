@@ -335,4 +335,34 @@ export class DatabaseService {
       return [];
     }
   }
+
+
+async startWorkout(note: string = ''): Promise<number> {
+    const date = new Date().toISOString().split('T')[0]; //(z.B. "2025-10-04")
+    
+    // WICHTIG: Sicherstellen, dass die Datenbank geöffnet ist, falls 
+    // der APP_INITIALIZER nicht richtig eingerichtet wurde.
+    // Wenn der APP_INITIALIZER verwendet wird, ist dies nicht nötig.
+    // await this.initialized; // Falls Sie die manuelle Initialisierungs-Promise verwenden
+    
+    try {
+        const res = await this.db.run(
+            `INSERT INTO workouts (date, note) VALUES (?, ?)`,
+            [date, note]
+        );
+
+        const newWorkoutId = res.changes?.lastId ?? -1;
+
+        if (newWorkoutId === -1) {
+            console.error('Failed to get the last inserted ID for the new workout.');
+        }
+
+        return newWorkoutId;
+
+    } catch (error) {
+        console.error('Error starting new workout:', error);
+        // Bei einem Fehler geben wir -1 oder eine andere Fehlerkennung zurück.
+        return -1; 
+    }
+}
 }

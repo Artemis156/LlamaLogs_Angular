@@ -34,6 +34,7 @@ import { DatabaseService } from 'src/app/services/database.service';
 })
 export class AddStrengthComponent implements OnInit {
   selectedEquipment: any;
+  workoutId: number = 0;
   weightUnit: 'kg' | 'lbs' = 'kg';
   strengthSets = [{ weight: '', reps: '' }];
   inputFocused = false;
@@ -48,6 +49,7 @@ export class AddStrengthComponent implements OnInit {
     addIcons({ fitnessOutline, addCircleOutline, removeCircleOutline });
     const nav = this.router.getCurrentNavigation();
     this.selectedEquipment = nav?.extras.state?.['equipment'] ?? null;
+    this.workoutId = nav?.extras.state?.['workoutId'] ?? 0;
   }
 
   ngOnInit() {
@@ -94,7 +96,7 @@ export class AddStrengthComponent implements OnInit {
     this.loading = true;
     try {
       const workout_exercise_id = await this.database.addStrengthExercise(
-        1, // Beispielhafte workout_id, sollte durch die tatsächliche ID ersetzt werden
+        this.workoutId,
         this.selectedEquipment ? this.selectedEquipment.id : 0
       );
       for (const set of this.strengthSets) {
