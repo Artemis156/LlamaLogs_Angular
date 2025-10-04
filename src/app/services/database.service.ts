@@ -46,10 +46,13 @@ export class DatabaseService {
   private db!: SQLiteDBConnection;
   private exercise: WritableSignal<Exercise[]> = signal([]);
 
+  private initialized: Promise<void>;
 
-  constructor() {}
+  constructor() {
+    this.initialized = this.initializPlugin().then(() => {});
+  }
 
-  async initializPlugin() {
+  async initializPlugin(): Promise<void> {
     this.db = await this.sqlite.createConnection(
       DB,
       false,
@@ -159,7 +162,7 @@ export class DatabaseService {
 
     await this.db.execute(schema);
 
-    return true;
+    return;
   }
 
   getExercises(): Exercise[] {
@@ -268,6 +271,7 @@ export class DatabaseService {
   }
 
   async getLastWorkout(): Promise<WorkoutExercise[]> {
+    await this.initialized;
     try {
       const res = await this.db.query(
         `
@@ -291,7 +295,9 @@ export class DatabaseService {
     }
   }
 
-  async getLastExerciseByID(exerciseId: number): Promise<WorkoutExercise | null> {
+  async getLastExerciseByID(
+    exerciseId: number
+  ): Promise<WorkoutExercise | null> {
     const res = await this.db.query(
       `
       SELECT we.*, w.date, e.name, e.type as category
@@ -310,7 +316,8 @@ export class DatabaseService {
       console.log('No previous entries found for this exercise.');
       return null;
     } else {
-      return values[0] as WorkoutExercise;}
+      return values[0] as WorkoutExercise;
+    }
   }
 
   async getLastSetsByWorkoutExerciseId(
@@ -336,33 +343,33 @@ export class DatabaseService {
     }
   }
 
-
-async startWorkout(note: string = ''): Promise<number> {
+  async startWorkout(note: string = ''): Promise<number> {
     const date = new Date().toISOString().split('T')[0]; //(z.B. "2025-10-04")
-    
-    // WICHTIG: Sicherstellen, dass die Datenbank geöffnet ist, falls 
+
+    // WICHTIG: Sicherstellen, dass die Datenbank geöffnet ist, falls
     // der APP_INITIALIZER nicht richtig eingerichtet wurde.
     // Wenn der APP_INITIALIZER verwendet wird, ist dies nicht nötig.
     // await this.initialized; // Falls Sie die manuelle Initialisierungs-Promise verwenden
-    
+
     try {
-        const res = await this.db.run(
-            `INSERT INTO workouts (date, note) VALUES (?, ?)`,
-            [date, note]
+      const res = await this.db.run(
+        `INSERT INTO workouts (date, note) VALUES (?, ?)`,
+        [date, note]
+      );
+
+      const newWorkoutId = res.changes?.lastId ?? -1;
+
+      if (newWorkoutId === -1) {
+        console.error(
+          'Failed to get the last inserted ID for the new workout.'
         );
+      }
 
-        const newWorkoutId = res.changes?.lastId ?? -1;
-
-        if (newWorkoutId === -1) {
-            console.error('Failed to get the last inserted ID for the new workout.');
-        }
-
-        return newWorkoutId;
-
+      return newWorkoutId;
     } catch (error) {
-        console.error('Error starting new workout:', error);
-        // Bei einem Fehler geben wir -1 oder eine andere Fehlerkennung zurück.
-        return -1; 
+      console.error('Error starting new workout:', error);
+      // Bei einem Fehler geben wir -1 oder eine andere Fehlerkennung zurück.
+      return -1;
     }
-}
+  }
 }
